@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import NavBar from "@/components/NavBar.vue";
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125"/>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div class="wrapper">
+        <HelloWorld msg="You did it!"/>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/create">Create Event</RouterLink>
-        <RouterLink to="/event/1234567890">Event</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+          <RouterLink to="/create">Create Event</RouterLink>
+          <RouterLink to="/event/1234567890">Event</RouterLink>
+        </nav>
+      </div>
+    </header>
+  <div>
+    <NavBar></NavBar>
+  </div>
+  <div>
+    <RouterView/>
+  </div>
 </template>
 
 <style scoped>
