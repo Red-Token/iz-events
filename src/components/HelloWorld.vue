@@ -2,6 +2,22 @@
 defineProps<{
   msg: string
 }>()
+
+// import L from "leaflet";
+// import "leaflet/dist/leaflet.css";
+// import {onMounted} from "vue";
+//
+// const x = 55.7047;
+// const y = 13.1910;
+//
+// onMounted(() => {
+//   const map = L.map("map").setView([x, y], 13);
+//   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+//
+//   L.marker([x, y]).addTo(map)
+//       .bindPopup("Zool is cool")
+//       .openPopup();
+// });
 </script>
 
 <template>
