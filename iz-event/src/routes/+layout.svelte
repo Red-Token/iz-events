@@ -5,19 +5,18 @@
 </script>
 
 <main>
-
 	<nav>
-		<a href="/home" aria-current={page.url.pathname === '/home'}> home </a>
-		<a href="/create" aria-current={page.url.pathname === '/create'}> create </a>
-		<a href="/about" aria-current={page.url.pathname === '/about'}> about </a>
-		<a href="/event" aria-current={page.url.pathname === '/event'}> event </a>
+		<a href="/event/home" aria-current={page.url.pathname === '/home'}> home </a>
+		<a href="/event/create" aria-current={page.url.pathname === '/create'}> create </a>
+		<a href="/event/about" aria-current={page.url.pathname === '/about'}> about </a>
+		<a href="/event/events" aria-current={page.url.pathname === '/events'}> event </a>
 		
 		{#if navigating.to}
 		navigating to {navigating.to.url.pathname}
 		{/if}
 	</nav>
-	
 </main>
+
 {@render children()}
 
 <style>
