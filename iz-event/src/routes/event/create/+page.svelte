@@ -76,7 +76,7 @@
 		console.log(publishResult);
 
 		const id = publish.event.id;
-		await goto(`/event/${id}`);
+		goto(`/event/events/${id}`);
 	}
 </script>
 

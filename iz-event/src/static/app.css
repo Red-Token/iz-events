@@ -1,5 +1,4 @@
-
-  html {
+html {
 	--bg-1: #2e2e2e;
 	--bg-2: #4d4d4d;
 	--bg-3: #666;
@@ -9,133 +8,136 @@
 	--link: #73c1fc;
 	--link-hover: #91cefd;
 	--link-active: #4baffb;
-  }
-  body {
+}
+body {
 	--border-radius: 4px;
-	--font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-	--font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+	--font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+		'Helvetica Neue', sans-serif;
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 	background: var(--bg-1);
-	
+
 	color: var(--fg-1);
 	font-family: var(--font);
 	height: calc(100vh - 2rem);
 	margin: 1rem;
 	line-height: 1.5;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-variant-numeric: tabular-nums;
 	font-weight: 400;
 	line-height: 1.1;
-	
-  }
-  :-webkit-any(h1, h2, h3, h4, h5, h6, p) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+:-webkit-any(h1, h2, h3, h4, h5, h6, p) {
 	margin: 1rem 0.1rem;
-  }
-  :is(h1, h2, h3, h4, h5, h6, p) {
+}
+:is(h1, h2, h3, h4, h5, h6, p) {
 	margin: 1rem 0.1rem;
-  }
-  label {
+}
+label {
 	margin: 0.5rem 0.1rem;
-  }
-  :-webkit-any(h1, h2, h3, h4, h5, h6, p, label):first-child {
+}
+:-webkit-any(h1, h2, h3, h4, h5, h6, p, label):first-child {
 	margin-top: 0;
-  }
-  :is(h1, h2, h3, h4, h5, h6, p, label):first-child {
+}
+:is(h1, h2, h3, h4, h5, h6, p, label):first-child {
 	margin-top: 0;
-  }
-  :-webkit-any(h1, h2, h3, h4, h5, h6, p, label):last-child {
+}
+:-webkit-any(h1, h2, h3, h4, h5, h6, p, label):last-child {
 	margin-bottom: 0;
-  }
-  :is(h1, h2, h3, h4, h5, h6, p, label):last-child {
+}
+:is(h1, h2, h3, h4, h5, h6, p, label):last-child {
 	margin-bottom: 0;
-  }
-  a {
+}
+a {
 	color: var(--link);
-  }
-  a:hover {
+}
+a:hover {
 	color: var(--link-hover);
-  }
-  a:active {
+}
+a:active {
 	color: var(--link-active);
-  }
-  label {
+}
+label {
 	align-items: center;
 	gap: 0.5rem;
 	display: flex;
-  }
-  label input {
+}
+label input {
 	margin: 0;
-  }
-  button,
-  input,
-  select {
+}
+button,
+input,
+select {
 	font-family: inherit;
 	font-size: inherit;
-  }
-  button {
+}
+button {
 	background: var(--link);
 	color: var(--bg-1);
 	border-radius: var(--border-radius);
 	border: none;
 	padding: 0.5rem 1rem;
-  }
-  button:hover {
+}
+button:hover {
 	background: var(--link-hover);
-  }
-  button:active {
+}
+button:active {
 	background: var(--link-active);
-  }
-  :-webkit-any(button, button:hover, button:active):disabled {
+}
+:-webkit-any(button, button:hover, button:active):disabled {
 	background: var(--link);
 	filter: grayscale();
 	opacity: 0.4;
-  }
-  :is(button, button:hover, button:active):disabled {
+}
+:is(button, button:hover, button:active):disabled {
 	background: var(--link);
 	filter: grayscale();
 	opacity: 0.4;
-  }
-  input,
-  textarea,
-  select {
+}
+input,
+textarea,
+select {
 	border: 1px solid var(--bg-2);
 	border-radius: var(--border-radius);
 	box-sizing: border-box;
 	padding: 0.5rem;
-  }
-  input,
-  textarea {
+}
+input,
+textarea {
 	background: var(--bg-1);
 	color: inherit;
-  }
-  select:not([multiple]) {
+}
+select:not([multiple]) {
 	background: var(--bg-2);
-  }
-  textarea {
+}
+textarea {
 	font-family: var(--font-mono);
 	font-size: 0.9rem;
-  }
-  form {
+}
+form {
 	flex-direction: column;
 	align-items: baseline;
 	gap: 1rem;
 	display: flex;
-  }
-  ul:has(li):has(form) {
+}
+ul:has(li):has(form) {
 	padding: 0;
 	list-style: none;
-  }
-  li form {
+}
+li form {
 	flex-direction: row;
 	gap: 0.5rem;
 	margin: 0.5rem 0;
-  }
-  nav {
+}
+nav {
 	background: var(--bg-2);
 	z-index: 2;
 	border-radius: var(--border-radius);
@@ -144,40 +146,40 @@
 	padding: 1em;
 	display: flex;
 	position: relative;
-  }
-  nav a {
+}
+nav a {
 	text-decoration: none;
-  }
-  nav a[aria-current="true"] {
+}
+nav a[aria-current='true'] {
 	border-bottom: 2px solid;
-  }
-  ul:has(form) {
+}
+ul:has(form) {
 	padding: 0;
 	list-style: none;
-  }
-  progress {
+}
+progress {
 	margin: 0.5rem 0;
-  }
-  progress:first-child {
+}
+progress:first-child {
 	margin-top: 0;
-  }
-  progress:lsat-child {
+}
+progress:lsat-child {
 	margin-bottom: 0;
-  }
-  .error {
+}
+.error {
 	color: red;
-  }
-  code {
+}
+code {
 	background: var(--bg-2);
 	font-family: var(--font-mono);
 	border-radius: var(--border-radius);
 	padding: 0.15rem 0.3rem;
 	font-size: 0.9em;
-  }
-  ul.todos {
+}
+ul.todos {
 	padding: 0;
-  }
-  ul.todos li form {
+}
+ul.todos li form {
 	-webkit-user-select: none;
 	user-select: none;
 	background: var(--bg-1);
@@ -187,11 +189,13 @@
 	gap: 0.5em;
 	margin: 0 0 0.5em;
 	padding: 0.5em 0.5em 0.5em 1em;
-	transition: filter 0.2s, opacity 0.2s;
+	transition:
+		filter 0.2s,
+		opacity 0.2s;
 	display: flex;
 	position: relative;
-  }
-  ul.todos li:not(:has(> form)) {
+}
+ul.todos li:not(:has(> form)) {
 	-webkit-user-select: none;
 	user-select: none;
 	background: var(--bg-1);
@@ -201,15 +205,17 @@
 	gap: 0.5em;
 	margin: 0 0 0.5em;
 	padding: 0.5em 0.5em 0.5em 1em;
-	transition: filter 0.2s, opacity 0.2s;
+	transition:
+		filter 0.2s,
+		opacity 0.2s;
 	display: flex;
 	position: relative;
-  }
-  ul.todos .done {
+}
+ul.todos .done {
 	filter: none;
 	opacity: 0.4;
-  }
-  ul.todos button {
+}
+ul.todos button {
 	cursor: pointer;
 	aspect-ratio: 1;
 	opacity: 0.5;
@@ -222,8 +228,7 @@
 	height: 3em;
 	margin: -0.5em -0.5em -0.5em 0;
 	transition: opacity 0.2s;
-  }
-  ul.todos button:hover {
+}
+ul.todos button:hover {
 	opacity: 1;
-  }
-  
+}
