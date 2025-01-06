@@ -6,6 +6,7 @@
 	import * as ngeohash from 'ngeohash';
 	import { DELETE, normalizeRelayUrl, REACTION, type TrustedEvent } from '@welshman/util';
 	import { now, setContext, sleep } from '@welshman/lib';
+	import { onMount } from 'svelte';
 	import { EventType, SignerType, SynchronisedSession } from 'iz-nostrlib';
 	import {
 		AbstractNip52CalendarEvent,
@@ -21,53 +22,53 @@
 	const x = 55.7047;
 	const y = 13.191;
 
-	$effect.pre(() => {
-		async () => {
-			const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x';
-			const msg = 'Hello World';
-			let triggered = false;
+	onMount(async () => {
+		const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x';
+		const msg = 'Hello World';
+		let triggered = false;
 
-			setContext({
-				net: getDefaultNetContext(),
-				app: getDefaultAppContext()
-			});
+		setContext({
+			net: getDefaultNetContext(),
+			app: getDefaultAppContext()
+		});
 
-			// const url = 'wss://relay.lxc'
-			const url = normalizeRelayUrl('wss://relay.stream.labs.h3.se');
-			const relays = [url];
+		// const url = 'wss://relay.lxc'
+		const url = normalizeRelayUrl('wss://relay.stream.labs.h3.se');
+		const relays = [url];
 
-			const aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
+		const aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
 
-			const TEST_EVENT = 10666;
+		const TEST_EVENT = 10666;
 
-			aliceSession.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
-				calEvent.cal = new Nip52CalendarEvent(event);
+		aliceSession.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
+			calEvent.cal = new Nip52CalendarEvent(event);
 
-				const resMsg = JSON.parse(event.content);
-				zor.msg = resMsg;
-				console.log(resMsg);
-				console.log(event);
-			});
-			console.log(userId);
+			const resMsg = JSON.parse(event.content);
+			zor.msg = resMsg;
+			console.log(resMsg);
+			console.log(event);
+		});
+		console.log(userId);
 
-			const sub = aliceSession.createSubscription([
-				// Here we subscribe to the membership kind
-				{ kinds: [TEST_EVENT], ids: [userId] }
-			]);
-		};
+		const sub = aliceSession.createSubscription([
+			// Here we subscribe to the membership kind
+			{ kinds: [TEST_EVENT], ids: [userId] }
+		]);
 	});
-
 	$effect(() => {
 		const xxx = '9q8yyk8yt';
 		const coordinates = ngeohash.decode(xxx);
 		console.log(coordinates);
 	});
+	$inspect(calEvent.cal.title, calEvent.cal.description); 
 </script>
 
 <div class="container">
 	<h1>{calEvent.cal.title}</h1>
 	<p>{calEvent.cal.description}</p>
-	{#each calEvent.cal.geoHashes as hash}
-		<MapComponent {hash} title={calEvent.cal.title} />
-	{/each}
+	<div>
+		{#each calEvent.cal.geoHashes || [] as hash}
+			<MapComponent hash={hash} title={calEvent.cal.title} />
+		{/each}
+	</div>
 </div>

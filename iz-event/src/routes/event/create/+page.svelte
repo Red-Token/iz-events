@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { now, setContext, sleep } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { DELETE, normalizeRelayUrl, REACTION, type TrustedEvent } from '@welshman/util';
@@ -7,42 +8,35 @@
 	import { Nip52CalendarEventTemplate } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import * as ngeohash from 'ngeohash';
 
+	
 	const x = 55.7047;
 	const y = 13.191;
 
-	// let event = $state({
-	// 	tile: '',
-	// 	description: '',
-	// 	date: '',
-	// 	place: ngeohash.encode(lat, lon)
-	// });
-
 	let aliceSession: SynchronisedSession;
 
-	$effect.pre(() => {
-		async () => {
-			const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x';
+	onMount(async () => {
+		const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x';
 
-			setContext({
-				net: getDefaultNetContext(),
-				app: getDefaultAppContext()
-			});
+		setContext({
+			net: getDefaultNetContext(),
+			app: getDefaultAppContext()
+		});
 
-			// const url = 'wss://relay.lxc'
-			const url = 'wss://relay.stream.labs.h3.se';
-			const relays = [normalizeRelayUrl(url)];
+		// const url = 'wss://relay.lxc'
+		const url = 'wss://relay.stream.labs.h3.se';
+		const relays = [normalizeRelayUrl(url)];
 
-			aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
-		};
+		aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
 	});
 
 	const lat = 37.7749;
 	const lon = -122.4194;
+	let hash = $props();
 
-	const hash = ngeohash.encode(lat, lon);
+	hash = ngeohash.encode(lat, lon);
+
 	const event = { tile: '', description: '', date: '', place: hash };
 
-	
 	async function createz() {
 		const TEST_EVENT = 10666;
 		const msg = 'Hello World';
@@ -63,20 +57,10 @@
 		const payload = template.createNip52EventTemplate();
 		const publish = publisher.publish(TEST_EVENT, payload);
 
-		// const publish = publisher.publish(TEST_EVENT, {
-		//   content: JSON.stringify(msg), tags: [
-		//     ['d', uuid],
-		//     ['title', 'MyEvent'],
-		//     ['start', '2024-10-20'],
-		//     ['location', '2024-10-20'],
-		//   ]
-		// })
-
 		const publishResult = await publish.result;
 		console.log(publishResult);
-
-		const id = publish.event.id;
-		goto(`/event/events/${id}`);
+		
+		goto(`/event/events/${publish.event.id}`);
 	}
 </script>
 
@@ -96,6 +80,7 @@
 	</div>
 	<div>
 		<label for="place">Place:</label>
+		
 		<input id="place" bind:value={event.place} />
 	</div>
 	<button onclick={createz}>CREATE</button>
