@@ -33,8 +33,6 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
-		"svelte-routing": "^2.13.0",
-		"iz-nostrlib": "^0.0.11",
 		"@welshman/app": "0.0.29",
 		"@welshman/content": "0.0.12",
 		"@welshman/dvm": "0.0.10",
@@ -44,6 +42,9 @@
 		"@welshman/signer": "0.0.14",
 		"@welshman/store": "0.0.12",
 		"@welshman/util": "0.0.45",
-		"ngeohash": "^0.6.3"
+		"iz-nostrlib": "^0.0.11",
+		"leaflet": "^1.9.4",
+		"ngeohash": "^0.6.3",
+		"svelte-routing": "^2.13.0"
 	}
 }

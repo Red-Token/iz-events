@@ -14,10 +14,7 @@
 
 	let aliceSession: SynchronisedSession;
 
-	$effect.pre(() => {
-		// async () => {
-		// };
-	});
+	
 
 	const lat = 37.7749;
 	const lon = -122.4194;

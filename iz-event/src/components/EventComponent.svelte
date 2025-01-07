@@ -1,13 +1,11 @@
 <script lang="ts">
-
 	import { EventType, NostrClient } from 'iz-nostrlib';
 	import { normalizeRelayUrl, type TrustedEvent } from '@welshman/util';
 	import { onMount } from 'svelte';
-	import {
-		Nip52CalendarEvent,
-	} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
+	import { Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
+	import MapComponent from './MapComponent.svelte';
 
 	let { kind, pubkey, uuid } = $props();
 
@@ -18,7 +16,9 @@
 		app: getDefaultAppContext()
 	});
 
-	let decription = $state("")
+	let title: string = $state('');
+	let decription: string = $state('');
+	let geohashs: string[] | undefined = $state(['sfsfs']);
 
 	const tmpKind2 = 10778;
 
@@ -29,13 +29,13 @@
 		const session = await NostrClient.getInstance().createSession(relays);
 		const coordinate = `${kind}:${pubkey}:${uuid}`;
 
-
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
-
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
 
-				decription = cal.description
+				title = cal.title;
+				decription = cal.description;
+				geohashs = cal.locations;
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
 				// const cool = new Nip52CalendarEventRSVPMessage(event);
@@ -54,26 +54,28 @@
 	function hello() {
 		alert('Hello World!');
 	}
-
 </script>
-
-<style>
-</style>
 
 <div>
 	{test.x}
 </div>
 <div>
 	And then there was: {test.y}
-
 </div>
 
 {#if NostrClient.getInstance().isLoggedIn()}
 	I am soo logged in
 {/if}
+<h1>
+	{title}
+</h1>
+<h2>
+	{decription}
+</h2>
 
-{decription}
+<MapComponent hash={geohashs[0]} {title} />
 
-<button onclick="{hello}">BUTTON</button>
+<!-- <button onclick={hello}>BUTTON</button> -->
 
-
+<style>
+</style>
