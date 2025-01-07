@@ -2,6 +2,7 @@
 	import { page, navigating } from '$app/state';
 	let { children } = $props();
 	import '../static/app.css';
+	import LogInComponent from '../components/LogInComponent.svelte';
 </script>
 
 <main>
@@ -10,6 +11,8 @@
 		<a href="/event/create" aria-current={page.url.pathname === '/create'}> create </a>
 		<a href="/event/about" aria-current={page.url.pathname === '/about'}> about </a>
 		<a href="/event/events" aria-current={page.url.pathname === '/events'}> event </a>
+
+		<LogInComponent></LogInComponent>
 
 		{#if navigating.to}
 			navigating to {navigating.to.url.pathname}
@@ -22,14 +25,14 @@
 <style>
 	main {
 		display: flex;
-		justify-content: center; 
-		align-items: center; 
+		justify-content: center;
+		align-items: center;
 		text-align: center;
 		padding: 1em;
 		max-width: 100%;
 		margin: 0 auto;
 	}
-	
+
 
 	nav {
 		display: flex;
