@@ -4,9 +4,5 @@ import EventComponent from '../../../components/EventComponent.svelte';
 
 <main>
 	<h1>Migrate to Svelte</h1>
-
-
-	<EventComponent>
-	</EventComponent>
-
+	
 </main>

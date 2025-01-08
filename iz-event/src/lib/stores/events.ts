@@ -1,17 +1,17 @@
 import { writable, get } from 'svelte/store';
-
+import type { TypeEvents } from '../types';
 const eventStores = new Map();
 
 export function getEventStore(id: string) {
     if (!eventStores.has(id)) {
-        eventStores.set(id, writable<EventData>({
+        eventStores.set(id, writable<TypeEvents>({
+            owner: '',
             uuid: '',
             title: '',
+            geoHashes: [''],
             description: '',
-            geohash: '',
 			date: '',
-			geoHashs: '',
-			place: '',
+			places: [''],
         }));
     }
     return eventStores.get(id);

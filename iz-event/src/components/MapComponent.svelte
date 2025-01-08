@@ -17,13 +17,11 @@
 	});
 </script>
 
-<div>
-	<div id="map2" style="height: 400px;"></div>
-</div>
+<div id="map2"></div>
 
 <style>
 	#map2 {
 		width: 100%;
-		height: 400px;
+		height: 100%;
 	}
 </style>
