@@ -35,7 +35,6 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
-		"iz-nostrlib": "^0.0.7",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"svelte": "^5.0.0",
@@ -49,6 +48,16 @@
 		"leaflet": "^1.9.4",
 		"ngeohash": "^0.6.3",
 		"nostr-tools": "^2.10.4",
+		"@welshman/app": "0.0.29",
+		"@welshman/content": "0.0.12",
+		"@welshman/dvm": "0.0.10",
+		"@welshman/feeds": "0.0.25",
+		"@welshman/lib": "0.0.26",
+		"@welshman/net": "0.0.38",
+		"@welshman/signer": "0.0.14",
+		"@welshman/store": "0.0.12",
+		"@welshman/util": "0.0.45",
+		"iz-nostrlib": "^0.0.13",
 		"svelte-routing": "^2.13.0"
 	}
 }
