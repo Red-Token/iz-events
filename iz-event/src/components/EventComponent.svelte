@@ -7,24 +7,38 @@
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { me } from '../stores/profile.svelte';
 	import MapComponent from './MapComponent.svelte';
+	import { AbstractNip52CalendarEvent } from 'iz-nostrlib/src/org/nostr/nip52/Nip52CalendarEventTemplate';
 
 	let { kind, pubkey, uuid } = $props();
 
-	let test = $state({ x: 100, y: 'pigs-fly' });
+	let test = $state({ x: 100, y: 'pigs-fly', owner: '' });
 
 	setContext({
 		net: getDefaultNetContext(),
 		app: getDefaultAppContext()
 	});
 
-	let eventState = $state({
-		description: '',
-		owner: ''
-	});
+	// class Xzool {
+	// 	title: string = '';
+	// 	description: string = '';
+	// 	start: Date = new Date();
+	// 	geohashs: string[] | undefined = [];
+	// 	owner: string = '';
+	// }
 
-	let title: string = $state('');
-	let decription: string = $state('');
-	let geohashs: string[] | undefined = $state(['sfsfs']);
+	let eventState = $state(new AbstractNip52CalendarEvent('', '', '', new Date()));
+
+	// let eventState = $state({
+	// 	title: '',
+	// 	description: '',
+	// 	start: new Date(),
+	// 	geohashs: [],
+	// 	owner: ''
+	// });
+
+	// let title: string = $state('');
+	// let decription: string = $state('');
+	// let geohashs: string[] | undefined = $state(['sfsfs']);
 
 	const tmpKind2 = 10778;
 
@@ -41,12 +55,18 @@
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
 
-				eventState.description = cal.description;
-				eventState.owner = cal.event.pubkey;
+				eventState = cal;
+				test.owner = cal.event.pubkey;
+				// eventState.title = cal.title;
+				// eventState.description = cal.description;
+				// eventState.start = cal.start;
+				// eventState.owner = cal.event.pubkey;
+				// eventState.geohashs = cal.locations;
 
-				title = cal.title;
-				decription = cal.description;
-				geohashs = cal.locations;
+				// title = cal.title;
+				// decription = cal.description;
+				// // eventState.date = cal.start;
+				// geohashs = cal.locations;
 
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
@@ -66,6 +86,18 @@
 	function hello() {
 		alert('Hello World!');
 	}
+
+	function ert(variable: string[][] | undefined): string[][] {
+		if (variable === undefined) return [];
+		return variable;
+	}
+
+	function ert2(variable: string[] | undefined): string[] {
+		if (variable === undefined) return [];
+		return variable;
+	}
+
+
 </script>
 
 <div>
@@ -77,7 +109,7 @@
 	{#if me.pubkey === ''}
 		You need to log in to interact with us
 	{:else }
-		{#if me.pubkey === eventState.owner}
+		{#if me.pubkey === test.owner}
 			welcome creator
 		{:else }
 			welcome visitor
@@ -87,18 +119,29 @@
 	{eventState.description}
 
 	<h1>
-		{title}
+		{eventState.title}
 	</h1>
-	<h2>
-		{decription}
-	</h2>
+	{eventState.description}
+	{eventState.start}
+	{eventState.participants}
 
-	<MapComponent hash={geohashs[0]} {title} />
+	{#each ert(eventState.participants) as participant, i}
+		{participant}  and {i}
+	{/each}
+
+	{#each ert2(eventState.geoHashes) as geoHash, i}
+		{geoHash}  and {i}
+	{/each}
+
+	{#each ert2(eventState.locations) as location, i}
+		{location}  and {i}
+	{/each}
+
+
+	<!--	<MapComponent hash={geohashs[0]} {title} />-->
 
 	<button onclick="{hello}">BUTTON</button>
 </div>
-
-
 
 
 <!-- <button onclick={hello}>BUTTON</button> -->
