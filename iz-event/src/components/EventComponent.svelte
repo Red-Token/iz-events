@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { EventType, NostrClient, type SynchronisedSession } from 'iz-nostrlib';
 	import { normalizeRelayUrl, type TrustedEvent } from '@welshman/util';
 	import { onMount } from 'svelte';
@@ -7,6 +6,7 @@
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { me } from '../stores/profile.svelte';
+	import MapComponent from './MapComponent.svelte';
 
 	let { kind, pubkey, uuid } = $props();
 
@@ -22,6 +22,10 @@
 		owner: ''
 	});
 
+	let title: string = $state('');
+	let decription: string = $state('');
+	let geohashs: string[] | undefined = $state(['sfsfs']);
+
 	const tmpKind2 = 10778;
 
 	let session: SynchronisedSession;
@@ -34,12 +38,15 @@
 		const coordinate = `${kind}:${pubkey}:${uuid}`;
 
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
-
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
 
 				eventState.description = cal.description;
 				eventState.owner = cal.event.pubkey;
+
+				title = cal.title;
+				decription = cal.description;
+				geohashs = cal.locations;
 
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
@@ -59,11 +66,7 @@
 	function hello() {
 		alert('Hello World!');
 	}
-
 </script>
-
-<style>
-</style>
 
 <div>
 	{test.x}
@@ -83,6 +86,21 @@
 
 	{eventState.description}
 
+	<h1>
+		{title}
+	</h1>
+	<h2>
+		{decription}
+	</h2>
+
+	<MapComponent hash={geohashs[0]} {title} />
+
 	<button onclick="{hello}">BUTTON</button>
 </div>
 
+
+
+
+<!-- <button onclick={hello}>BUTTON</button> -->
+
+<style></style>
