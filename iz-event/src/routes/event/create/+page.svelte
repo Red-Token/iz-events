@@ -7,8 +7,8 @@
 	import { EventType, SignerType, SynchronisedSession } from 'iz-nostrlib';
 	import { Nip52CalendarEventTemplate } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import * as ngeohash from 'ngeohash';
+	import { getEventStore } from '$lib/stores/events';
 
-	
 	const x = 55.7047;
 	const y = 13.191;
 
@@ -31,17 +31,16 @@
 
 	const lat = 37.7749;
 	const lon = -122.4194;
-	let hash = $props();
+	let geoHash = ngeohash.encode(lat, lon);
 
-	hash = ngeohash.encode(lat, lon);
-
-	const event = { tile: '', description: '', date: '', place: hash };
+	let event = $state({ tile: '', description: '', date: '', place: geoHash });
 
 	async function createz() {
 		const TEST_EVENT = 10666;
-		const msg = 'Hello World';
+
 		const publisher = aliceSession.createPublisher();
-		// const uuid = randomUUID()
+		
+		//const uuid = randomUUID()
 		const uuid = 'sdfdsfsdfsd';
 
 		const template = new Nip52CalendarEventTemplate(
@@ -51,16 +50,27 @@
 			event.date,
 			undefined,
 			undefined,
-			[event.place]
+			[event.place],
 		);
+		
 
 		const payload = template.createNip52EventTemplate();
 		const publish = publisher.publish(TEST_EVENT, payload);
 
 		const publishResult = await publish.result;
-		console.log(publishResult);
+		let id = publish.event.id
+
+		//locally store 
+		const eventStore = getEventStore(id);
+		eventStore.set({
+			title: event.tile,
+			description: event.description,
+			geohash: event.place
+		});
 		
-		goto(`/event/events/${publish.event.id}`);
+		console.log(publishResult);
+
+		goto(`/event/events/${id}`);
 	}
 </script>
 
@@ -80,7 +90,7 @@
 	</div>
 	<div>
 		<label for="place">Place:</label>
-		
+
 		<input id="place" bind:value={event.place} />
 	</div>
 	<button onclick={createz}>CREATE</button>

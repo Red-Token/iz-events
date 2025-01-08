@@ -6,7 +6,7 @@
 
 <main>
 	<nav>
-		<a href="/event/home" aria-current={page.url.pathname === '/home'}> home </a>
+		<a href="/" aria-current={page.url.pathname === '/'}> home </a>
 		<a href="/event/create" aria-current={page.url.pathname === '/create'}> create </a>
 		<a href="/event/about" aria-current={page.url.pathname === '/about'}> about </a>
 		<a href="/event/events" aria-current={page.url.pathname === '/events'}> event </a>
