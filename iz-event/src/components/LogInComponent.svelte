@@ -3,14 +3,16 @@
 	import { NostrClient, type SignerData } from 'iz-nostrlib';
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
+	import { me } from '../stores/profile.svelte';
 
 	let isPopupOpen = $state(false); // Track the popup visibility
-	let isLoggedIn = $state(NostrClient.getInstance().isLoggedIn())
+
+	const client = NostrClient.getInstance();
 
 	setContext({
 		net: getDefaultNetContext(),
 		app: getDefaultAppContext()
-	})
+	});
 
 	function openPopup() {
 		isPopupOpen = true;
@@ -21,24 +23,25 @@
 	}
 
 	function logIn(data: SignerData) {
-		NostrClient.getInstance().logIn(data)
-		isLoggedIn = NostrClient.getInstance().isLoggedIn()
+		client.logIn(data).then(() => {
+				me.pubkey = client.publicKey !== undefined ? client.publicKey : '';
+			}
+		);
 	}
 
 	function logOut() {
 		NostrClient.getInstance().logOut();
-		isLoggedIn = NostrClient.getInstance().isLoggedIn()
+		me.pubkey = client.publicKey !== undefined ? client.publicKey : '';
 	}
 
 </script>
 
-{#if isLoggedIn}
-	<h1>Welcome to Svelte Popup Example!</h1>
+{#if me.pubkey !== ''}
+	<h1>Welcome to Svelte Popup Example, { me.profile?.name}!</h1>
 	<button onclick={logOut}>LogOut</button>
 {:else }
 	<button onclick={openPopup}>LogIn</button>
 {/if}
-
 
 <!-- Pass props to control visibility and close action -->
 <Popup isOpen={isPopupOpen} closePopup={closePopup} logIn={logIn} />
