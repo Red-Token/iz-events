@@ -10,8 +10,7 @@
 	import { EventType, SignerType, SynchronisedSession } from 'iz-nostrlib';
 	import {
 		AbstractNip52CalendarEvent,
-		Nip52CalendarEvent,
-		
+		Nip52CalendarEvent
 	} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 
 	const route = $state({ params: { id: 'default-id' } });
@@ -36,31 +35,34 @@
 		const url = normalizeRelayUrl('wss://relay.stream.labs.h3.se');
 		const relays = [url];
 
-		const aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
+		//const aliceSession = await new SynchronisedSession({ type: SignerType.NIP01, nsec: aliceNSec }, relays).init();
 
 		const TEST_EVENT = 10666;
 
-		aliceSession.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
-			//calEvent.cal = new Nip52CalendarEvent(event);
+		//aliceSession.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
+		//calEvent.cal = new Nip52CalendarEvent(event);
 
-			const resMsg = JSON.parse(event.content);
-			zor.msg = resMsg;
-			console.log(resMsg);
-			console.log(event);
-		});
-		console.log(userId);
-
-		const sub = aliceSession.createSubscription([
-			// Here we subscribe to the membership kind
-			{ kinds: [TEST_EVENT], ids: [userId] }
-		]);
+		//const resMsg = JSON.parse(event.content);
+		// zor.msg = resMsg;
+		// console.log(resMsg);
+		// console.log(event);
 	});
+
+	// const sub = aliceSession.createSubscription([
+	// 	// Here we subscribe to the membership kind
+	// 	{ kinds: [TEST_EVENT], ids: [userId] }
+	// ]);
+	//});
 	$effect(() => {
 		const xxx = '9q8yyk8yt';
 		const coordinates = ngeohash.decode(xxx);
 		console.log(coordinates);
 	});
-	//$inspect(calEvent.cal.title, calEvent.cal.description); 
+
+	//TODO: It is necessary to use it for displaying the list of created and received events, to add the display of multiple
+	//markers on the map, and to include shared links/invites for sending invitations.
+	
+	//$inspect(calEvent.cal.title, calEvent.cal.description);
 </script>
 
 <!-- <div class="container">
