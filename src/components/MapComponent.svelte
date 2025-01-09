@@ -7,8 +7,8 @@
 	let { hash = $bindable(), title, isInteractive = false }: { hash: string; title: string; isInteractive: boolean } = $props();
 
 	let coordinates = $state({ latitude: 0, longitude: 0 });
-	let map: L.Map | undefined = $state();
-	let marker: L.Marker | null = $state(null);
+	let map: L.Map;
+	let marker: L.Marker
 
 	if (hash) coordinates = ngeohash.decode(hash);
 
