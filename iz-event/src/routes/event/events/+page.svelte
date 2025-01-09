@@ -8,9 +8,7 @@
 	import { now, setContext, sleep } from '@welshman/lib';
 	import { EventType, SignerType, SynchronisedSession } from 'iz-nostrlib';
 	import {
-		AbstractNip52CalendarEvent,
 		Nip52CalendarEvent,
-		Nip52CalendarEventTemplate
 	} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 
 	const route = $state({ params: { id: 'default-id' } });

@@ -14,8 +14,6 @@
 
 	let aliceSession: SynchronisedSession;
 
-	
-
 	const lat = 37.7749;
 	const lon = -122.4194;
 

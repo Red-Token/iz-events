@@ -1,18 +1,30 @@
 <script lang="ts">
 	import { type SignerData, SignerType } from 'iz-nostrlib';
+	import { getNip07 } from '@welshman/signer';
+	import QRCode from './QRCode.svelte';
 
 	export let isOpen = false; // Prop to control visibility
-	export let closePopup = () => {}
-	export let logIn = (data: SignerData) => {}
+	export let closePopup = () => {
+	};
+	export let logIn = (data: SignerData) => {
+	};
 
-	function zil() {
-		console.log("zil")
+	async function zil() {
+		console.log('zil');
 
-		const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x'
-		const aliceSignerData = { type: SignerType.NIP01, nsec: aliceNSec }
-		console.log(aliceSignerData)
-		logIn(aliceSignerData)
-		closePopup()
+		// const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x'
+		// const aliceSignerData = { type: SignerType.NIP01, nsec: aliceNSec }
+
+		const pubkey = await getNip07()?.getPublicKey()
+		console.log('pubkey', pubkey)
+
+		const aliceSignerData = { type: SignerType.NIP07, pubkey: pubkey };
+
+		// {method: "nip07", pubkey}
+
+		console.log(aliceSignerData);
+		logIn(aliceSignerData);
+		closePopup();
 	}
 
 </script>
@@ -24,7 +36,12 @@
 			<p>Click outside to close or press the button.</p>
 			<button on:click={zil}>AS</button>
 			<button on:click={closePopup}>Close</button>
+
+			<QRCode code="HELLO WAR!"></QRCode>
+
 		</div>
+
+
 	</div>
 {/if}
 
