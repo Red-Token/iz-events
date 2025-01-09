@@ -5,7 +5,6 @@
 	import { getEventStore } from '$lib/stores/events';
 	import { Nip52CalendarEventTemplateBuilder } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { normalizeRelayUrl } from '@welshman/util';
-	import Map from '../../../components/Map.svelte';
 	import MapComponent from '../../../components/MapComponent.svelte';
 
 	let aliceSession: SynchronisedSession;
@@ -16,7 +15,7 @@
 	let event: { title: string; description: string; date: string | Date; place: string } = $state({
 		title: '',
 		description: '',
-		date: '',
+		date: new Date,
 		place: hash
 	});
 

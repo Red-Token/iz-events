@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { EventType, NostrClient, type SynchronisedSession } from 'iz-nostrlib';
-	import type {Nip52CalendarEvent as EventTypes} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
+	import type { Nip52CalendarEvent as EventTypes } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { normalizeRelayUrl, type TrustedEvent } from '@welshman/util';
 	import { onMount } from 'svelte';
 	import { Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
@@ -8,6 +8,7 @@
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { me } from '../stores/profile.svelte';
 	import type { TypeEvents } from '$lib/types';
+	import { AbstractNip52CalendarEvent } from 'iz-nostrlib/src/org/nostr/nip52/Nip52CalendarEventTemplate';
 
 	let {
 		kind,
@@ -16,12 +17,32 @@
 		eventState = $bindable()
 	}: { kind: number; pubkey: string; uuid: string; eventState: EventTypes } = $props();
 
-	let test: { x: number; y: string } = $state({ x: 100, y: 'pigs-fly' });
+	let test: { x: number; y: string; owner: string } = $state({ x: 100, y: 'pigs-fly', owner: '' });
 
 	setContext({
 		net: getDefaultNetContext(),
 		app: getDefaultAppContext()
 	});
+
+	// class Xzool {
+	// 	title: string = '';
+	// 	description: string = '';
+	// 	start: Date = new Date();
+	// 	geohashs: string[] | undefined = [];
+	// 	owner: string = '';
+	// }
+
+	// let eventState = $state({
+	// 	title: '',
+	// 	description: '',
+	// 	start: new Date(),
+	// 	geohashs: [],
+	// 	owner: ''
+	// });
+
+	// let title: string = $state('');
+	// let decription: string = $state('');
+	// let geohashs: string[] | undefined = $state(['sfsfs']);
 
 	const tmpKind2: number = 10778;
 
@@ -37,7 +58,8 @@
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
-				eventState = cal
+				eventState = cal;
+				test.owner = cal.event.pubkey;
 				console.log(`
 					title = ${cal.title},
 					description = ${cal.description},
@@ -50,7 +72,6 @@
 					tags = ${cal.tags},
 					uuid = ${cal.uuid}
 				`);
-				
 
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
@@ -67,8 +88,14 @@
 		]);
 	});
 
-	function hello() {
-		alert('Hello World!');
+	function ert(variable: string[][] | undefined): string[][] {
+		if (variable === undefined) return [];
+		return variable;
+	}
+
+	function ert2(variable: string[] | undefined): string[] {
+		if (variable === undefined) return [];
+		return variable;
 	}
 </script>
 
@@ -80,9 +107,21 @@
 	And then there was: {test.y}
 	{#if me.pubkey === ''}
 		<h4>You need to log in to interact with us</h4>
-	{:else if me.pubkey === eventState.owner}
+	{:else if me.pubkey === test.owner}
 		<h4>Welcome creator</h4>
 	{:else}
 		<h4>Welcome visitor</h4>
 	{/if}
+
+	{#each ert(eventState.participants) as participant, i}
+		{participant} and {i}
+	{/each}
+
+	{#each ert2(eventState.geoHashes) as geoHash, i}
+		{geoHash} and {i}
+	{/each}
+
+	{#each ert2(eventState.locations) as location, i}
+		{location} and {i}
+	{/each}
 </div>
