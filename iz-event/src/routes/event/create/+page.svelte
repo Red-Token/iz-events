@@ -8,18 +8,10 @@
 	import Map from '../../../components/Map.svelte';
 	import MapComponent from '../../../components/MapComponent.svelte';
 
-	// let event = $state({
-	// 	tile: '',
-	// 	description: '',
-	// 	date: '',
-	// 	place: ngeohash.encode(lat, lon)
-	// });
-
 	let aliceSession: SynchronisedSession;
 
 	const lat: number = 37.7749;
 	const lon: number = -122.4194;
-
 	let hash: string = ngeohash.encode(lat, lon);
 	let event: { title: string; description: string; date: string | Date; place: string } = $state({
 		title: '',
@@ -48,7 +40,6 @@
 		// const eventThin = createEvent(tmpKind, et.createNip52EventTemplate())
 
 		// const TEST_EVENT = 10666;
-		// const msg = 'Hello World';
 
 		const url = 'wss://relay.stream.labs.h3.se';
 		const relays = [normalizeRelayUrl(url)];
@@ -56,18 +47,6 @@
 		aliceSession = await NostrClient.getInstance().createSession(relays);
 
 		const publisher = aliceSession.createPublisher();
-		// const uuid = randomUUID()
-		// const uuid = 'sdfdsfsdfsd';
-		//
-		// const template = new Nip52CalendarEventTemplate(
-		// 	uuid,
-		// 	event.tile,
-		// 	event.description,
-		// 	event.date,
-		// 	undefined,
-		// 	undefined,
-		// 	[event.place]
-		// );
 
 		// const payload = template.createNip52EventTemplate();
 		const publish = publisher.publish(tmpKind, nip52EventTemplate);
@@ -83,8 +62,6 @@
 
 		const publishResult = await publish.result;
 		let id = publish.event.id;
-
-		//locally store
 		console.log(publishResult);
 
 		const eventData: { kind: number; pubkey: string; uuid: string | number | undefined } = {
