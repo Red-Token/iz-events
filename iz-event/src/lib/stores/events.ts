@@ -10,7 +10,7 @@ export function getEventStore(id: string) {
             title: '',
             geoHashes: [''],
             description: '',
-			date: '',
+			start: '',
 			places: [''],
         }));
     }

@@ -5,6 +5,8 @@
 	import { getEventStore } from '$lib/stores/events';
 	import { Nip52CalendarEventTemplateBuilder } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { normalizeRelayUrl } from '@welshman/util';
+	import Map from '../../../components/Map.svelte';
+	import MapComponent from '../../../components/MapComponent.svelte';
 
 	// let event = $state({
 	// 	tile: '',
@@ -18,13 +20,13 @@
 	const lat: number = 37.7749;
 	const lon: number = -122.4194;
 
-	const hash: string = ngeohash.encode(lat, lon);
-	const event: { title: string; description: string; date: string | Date; place: string } = {
+	let hash: string = ngeohash.encode(lat, lon);
+	let event: { title: string; description: string; date: string | Date; place: string } = $state({
 		title: '',
 		description: '',
 		date: '',
-		place: hash 
-	};
+		place: hash
+	});
 
 	async function createz() {
 		const tmpKind: number = 10777;
@@ -120,6 +122,9 @@
 		<label for="place">Place:</label>
 		<input id="place" bind:value={event.place} />
 	</div>
+	<div>
+		<MapComponent isInteractive={true} title={event.title} bind:hash={event.place} />
+	</div>
 	<button onclick={createz}>CREATE</button>
 </div>
 
@@ -149,6 +154,7 @@
 	}
 
 	button {
+		margin-top: 0.5rem;
 		padding: 0.5rem 1rem;
 		background-color: #007bff;
 		color: #fff;
