@@ -7,10 +7,6 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
-src/routes/event/about/+page.svelte
-src/routes/event/about/\[id]/+page.ts
-src/routes/event/about/\[id]/+page.svelte
-src/components/Map.svelte
 # OS
 .DS_Store
 Thumbs.db
