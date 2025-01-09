@@ -10,7 +10,12 @@
 	import MapComponent from './MapComponent.svelte';
 	import type { TypeEvents } from '$lib/types';
 
-	let { kind, pubkey, uuid }: { kind: number; pubkey: string; uuid: string } = $props();
+	let {
+		kind,
+		pubkey,
+		uuid,
+		test1 = $bindable()
+	}: { kind: number; pubkey: string; uuid: string; test1: TypeEvents } = $props();
 
 	let test: { x: number; y: string } = $state({ x: 100, y: 'pigs-fly' });
 
@@ -41,14 +46,11 @@
 		const coordinate = `${kind}:${pubkey}:${uuid}`;
 
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
-			//TODO: should be done with explicit type casting in advance.
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
 
 				eventState.title = cal.title;
 				eventState.description = cal.description;
-				eventState.owner = cal.event.pubkey;
-				eventState.places = cal.locations;
 				eventState.geoHashes = cal.geoHashes;
 				eventState.date = cal.start;
 				console.log(`
@@ -63,6 +65,7 @@
 					tags = ${cal.tags},
 					uuid = ${cal.uuid}
 				`);
+				test1 = eventState;
 
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
@@ -84,7 +87,7 @@
 	}
 </script>
 
-<div class="content">
+
 	<div>
 		{test.x}
 	</div>
@@ -100,42 +103,4 @@
 		{/if}
 	</div>
 
-	<div>
-		{#if eventState.title !== ''}
-			<h1>
-				{eventState.title}
-			</h1>
-			<h3>
-				{eventState.description}
-			</h3>
-			<h3>
-				{eventState.date}
-			</h3>
-			<div class="map-container" style="border: 1px solid #000;">
-				<MapComponent hash={eventState.geoHashes[0]} title={eventState.title} />
-			</div>
-		{/if}
-	</div>
-</div>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		margin-bottom: 20px;
-	}
-
-	.content > div {
-		margin-bottom: 10px;
-	}
-
-	.map-container {
-		width: 600px;
-		height: 400px;
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-	}
-</style>

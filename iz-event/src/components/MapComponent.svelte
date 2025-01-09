@@ -3,7 +3,7 @@
 	import 'leaflet/dist/leaflet.css';
 	import * as ngeohash from 'ngeohash';
 
-	let { hash, title } = $props();
+	let { hash, title }: { hash: string; title: string } = $props();
 
 	import { onMount } from 'svelte';
 
