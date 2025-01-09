@@ -4,6 +4,6 @@ export interface TypeEvents {
 	title: string;
 	geoHashes: string[] | undefined;
 	description: string;
-	date: Date | string;
+	start: Date | string;
 	places: string[] | undefined;
 }

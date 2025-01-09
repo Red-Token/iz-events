@@ -1,37 +1,26 @@
 <script lang="ts">
 	import { EventType, NostrClient, type SynchronisedSession } from 'iz-nostrlib';
-	//import type {Nip52CalendarEvent as EventTypes} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
+	import type {Nip52CalendarEvent as EventTypes} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
 	import { normalizeRelayUrl, type TrustedEvent } from '@welshman/util';
 	import { onMount } from 'svelte';
 	import { Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { me } from '../stores/profile.svelte';
-	import MapComponent from './MapComponent.svelte';
 	import type { TypeEvents } from '$lib/types';
 
 	let {
 		kind,
 		pubkey,
 		uuid,
-		test1 = $bindable()
-	}: { kind: number; pubkey: string; uuid: string; test1: TypeEvents } = $props();
+		eventState = $bindable()
+	}: { kind: number; pubkey: string; uuid: string; eventState: EventTypes } = $props();
 
 	let test: { x: number; y: string } = $state({ x: 100, y: 'pigs-fly' });
 
 	setContext({
 		net: getDefaultNetContext(),
 		app: getDefaultAppContext()
-	});
-
-	let eventState: TypeEvents = $state({
-		owner: '',
-		uuid: '',
-		title: '',
-		geoHashes: [''],
-		description: '',
-		date: '',
-		places: ['']
 	});
 
 	const tmpKind2: number = 10778;
@@ -48,11 +37,7 @@
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
-
-				eventState.title = cal.title;
-				eventState.description = cal.description;
-				eventState.geoHashes = cal.geoHashes;
-				eventState.date = cal.start;
+				eventState = cal
 				console.log(`
 					title = ${cal.title},
 					description = ${cal.description},
@@ -65,7 +50,7 @@
 					tags = ${cal.tags},
 					uuid = ${cal.uuid}
 				`);
-				test1 = eventState;
+				
 
 				// entity.onNip52CalendarEventMessage(cal);
 			} else if (event.kind == tmpKind2) {
@@ -87,20 +72,17 @@
 	}
 </script>
 
+<div>
+	{test.x}
+</div>
 
-	<div>
-		{test.x}
-	</div>
-
-	<div>
-		And then there was: {test.y}
-		{#if me.pubkey === ''}
-			<h4>You need to log in to interact with us</h4>
-		{:else if me.pubkey === eventState.owner}
-			<h4>Welcome creator</h4>
-		{:else}
-			<h4>Welcome visitor</h4>
-		{/if}
-	</div>
-
-
+<div>
+	And then there was: {test.y}
+	{#if me.pubkey === ''}
+		<h4>You need to log in to interact with us</h4>
+	{:else if me.pubkey === eventState.owner}
+		<h4>Welcome creator</h4>
+	{:else}
+		<h4>Welcome visitor</h4>
+	{/if}
+</div>

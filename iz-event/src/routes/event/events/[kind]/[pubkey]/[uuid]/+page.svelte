@@ -3,33 +3,34 @@
 	import EventComponent from '../../../../../../components/EventComponent.svelte';
 	import MapComponent from '../../../../../../components/MapComponent.svelte';
 	import type { TypeEvents } from '$lib/types';
-	import { div } from '@welshman/lib';
+	import type { Nip52CalendarEvent as EventTypes } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	let kind: number = $state(Number(page.params.kind));
-	let test1: TypeEvents = $state({
+
+	let eventState: TypeEvents = $state({
 		owner: '',
 		uuid: '',
 		title: '',
 		geoHashes: [''],
 		description: '',
-		date: '',
+		start: '',
 		places: ['']
 	});
 </script>
 
-<EventComponent bind:test1 {kind} pubkey={page.params.pubkey} uuid={page.params.uuid} />
-<div class="content" >
-	{#if test1.title !== ''}
+<EventComponent bind:eventState {kind} pubkey={page.params.pubkey} uuid={page.params.uuid} />
+<div class="content">
+	{#if eventState.title !== ''}
 		<h1>
-			{test1.title}
+			{eventState.title}
 		</h1>
 		<h3>
-			{test1.description}
+			{eventState.description}
 		</h3>
 		<h4>
-			{test1.date}
+			{eventState.start}
 		</h4>
 		<div class="map-container" style="border: 1px solid #000;">
-			<MapComponent hash={test1.geoHashes[0]} title={test1.title} />
+			<MapComponent hash={eventState.geoHashes[0]} title={eventState.title} />
 		</div>
 	{/if}
 </div>
