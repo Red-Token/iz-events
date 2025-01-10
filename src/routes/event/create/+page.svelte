@@ -9,13 +9,11 @@
 
 	let aliceSession: SynchronisedSession;
 
-	const lat: number = 37.7749;
-	const lon: number = -122.4194;
-	let hash: string = ngeohash.encode(lat, lon);
+	let hash: string | undefined = $state();
 	let event: { title: string; description: string; date: string | Date; place: string } = $state({
 		title: '',
 		description: '',
-		date: new Date,
+		date: '',
 		place: hash
 	});
 
@@ -66,7 +64,7 @@
 		const eventData: { kind: number; pubkey: string; uuid: string | number | undefined } = {
 			kind: tmpKind,
 			pubkey: publish.event.pubkey,
-			uuid: (publish.event.tags.find((tag) => tag[0] === 'd') ?? [0, undefined])[1]
+			uuid: (publish.event.tags.find(tag => tag[0] === 'd') ?? [0, undefined])[1]
 		};
 
 		// const eventStore = getEventStore(id);
