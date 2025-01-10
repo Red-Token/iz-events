@@ -6,7 +6,7 @@
 	import { Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
-	import { me } from '../stores/profile.svelte';
+	import { me } from '@src/stores/profile.svelte';
 	import type { TypeEvents } from '$lib/types';
 	import { AbstractNip52CalendarEvent } from 'iz-nostrlib/src/org/nostr/nip52/Nip52CalendarEventTemplate';
 

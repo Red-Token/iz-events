@@ -3,7 +3,7 @@
 	import { NostrClient, type SignerData } from 'iz-nostrlib';
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
-	import { me } from '../stores/profile.svelte';
+	import { me } from '@src/stores/profile.svelte';
 
 	let isPopupOpen = $state(false); // Track the popup visibility
 

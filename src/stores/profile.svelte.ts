@@ -1,4 +1,4 @@
-import { NostrProfileMetaData } from '../static/NostrProfileMetaData';
+import { NostrProfileMetaData } from '@src/static/NostrProfileMetaData';
 
 const unknown = new NostrProfileMetaData();
 

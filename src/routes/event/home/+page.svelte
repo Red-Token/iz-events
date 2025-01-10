@@ -1,5 +1,5 @@
 <script lang="ts">
-import EventComponent from '../../../components/EventComponent.svelte';
+import EventComponent from '@src/components/EventComponent.svelte';
 </script>
 
 <main>

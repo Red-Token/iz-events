@@ -5,7 +5,7 @@
 	import { getEventStore } from '$lib/stores/events';
 	import { Nip52CalendarEventTemplateBuilder } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { normalizeRelayUrl } from '@welshman/util';
-	import MapComponent from '../../../components/MapComponent.svelte';
+	import MapComponent from '@src/components/MapComponent.svelte';
 
 	let aliceSession: SynchronisedSession;
 

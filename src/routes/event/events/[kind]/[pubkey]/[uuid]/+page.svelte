@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import EventComponent from '../../../../../../components/EventComponent.svelte';
-	import MapComponent from '../../../../../../components/MapComponent.svelte';
+	import EventComponent from '@src/components/EventComponent.svelte';
+	import MapComponent from '@src/components/MapComponent.svelte';
 	import type { TypeEvents } from '$lib/types';
 	import type { Nip52CalendarEvent as EventTypes } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	let kind: number = $state(Number(page.params.kind));

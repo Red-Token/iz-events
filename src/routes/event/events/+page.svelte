@@ -2,7 +2,7 @@
 	import L from 'leaflet';
 	import 'leaflet/dist/leaflet.css';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
-	import MapComponent from '../../../components/MapComponent.svelte';
+	import MapComponent from '@src/components/MapComponent.svelte';
 	import * as ngeohash from 'ngeohash';
 	import { DELETE, normalizeRelayUrl, REACTION, type TrustedEvent } from '@welshman/util';
 	import { now, setContext, sleep } from '@welshman/lib';

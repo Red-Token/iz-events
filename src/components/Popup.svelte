@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type SignerData, SignerType } from 'iz-nostrlib';
 	import { getNip07 } from '@welshman/signer';
-	import QRCode from './QRCode.svelte';
+	import QRCode from '@src/components/QRCode.svelte';
 
 	export let isOpen = false; // Prop to control visibility
 	export let closePopup = () => {
