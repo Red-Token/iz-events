@@ -12,7 +12,7 @@
 		<a href="/event/about" aria-current={page.url.pathname === '/about'}> about </a>
 		<a href="/event/events" aria-current={page.url.pathname === '/events'}> event </a>
 
-		<LogInComponent></LogInComponent>
+		<LogInComponent />
 	</nav>
 </main>
 

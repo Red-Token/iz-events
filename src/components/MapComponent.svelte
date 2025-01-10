@@ -16,10 +16,10 @@
 
 	if (hash) coordinates = ngeohash.decode(hash);
 
-	function getHash(coordinates: any) {
-		return ngeohash.encode(coordinates.latitude, coordinates.longitude);
-	}
-	async function getCoordinatesByIP() {
+	const getHash = (coordinates: { latitude: number; longitude: number }) =>
+		ngeohash.encode(coordinates.latitude, coordinates.longitude);
+
+	const getCoordinatesByIP = async () => {
 		if (isInteractive === false) return;
 		try {
 			const response = await fetch('http://ip-api.com/json/');
@@ -37,10 +37,9 @@
 			console.error(error);
 			return null;
 		}
-	}
+	};
 
-	
-	function onMapClick(e: L.LeafletMouseEvent) {
+	const onMapClick = (e: L.LeafletMouseEvent) => {
 		coordinates = {
 			latitude: e.latlng.lat,
 			longitude: e.latlng.lng
@@ -55,23 +54,26 @@
 		if (title) {
 			marker.bindPopup(title).openPopup();
 		}
-	}
+	};
 
-	onMount(() => {
-		map = L.map('map2').setView([coordinates.latitude || 0, coordinates.longitude || 0], hash ? 13 : 2);
-
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
+	onMount(async () => {
+		map = L.map('map2');
 		if (isInteractive === true) {
 			map.on('click', onMapClick);
-			getCoordinatesByIP().then(coordinates => {
+			await getCoordinatesByIP().then(coordinates => {
 				if (coordinates) {
 					hash = getHash(coordinates);
-					map.setView([coordinates.latitude, coordinates.longitude], 13);
 				}
 			});
 		}
-		if (title) L.marker([coordinates.latitude, coordinates.longitude]).addTo(map).bindPopup(title).openPopup();
+		setViewMap(map);
+	});
+
+	const setViewMap = $derived((map: L.Map) => {
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+		map.setView([coordinates.latitude || 0, coordinates.longitude || 0], hash ? 13 : 2);
+		marker = L.marker([coordinates.latitude, coordinates.longitude]).addTo(map);
+		if (title) marker.bindPopup(title).openPopup();
 	});
 </script>
 
