@@ -1,21 +1,33 @@
 <script lang="ts">
-	import L, { bind } from 'leaflet';
+	import L from 'leaflet';
 	import 'leaflet/dist/leaflet.css';
 	import * as ngeohash from 'ngeohash';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
-	let {
-		hash = $bindable(),
-		title,
-		isInteractive = false
-	}: { hash: string; title: string; isInteractive: boolean } = $props();
+	interface MapProps {
+		hash?: string;
+		title?: string;
+		isInteractive?: boolean;
+	}
+	interface Coordinates {
+		latitude: number;
+		longitude: number;
+	}
+	let { hash = $bindable(), title, isInteractive = false }: MapProps = $props();
 	let map: L.Map;
 	let marker: L.Marker;
-	let coordinates = { latitude: 0, longitude: 0 };
+	let coordinates: Coordinates = { latitude: 0, longitude: 0 };
 
-	if (hash) coordinates = ngeohash.decode(hash);
+	if (hash) {
+		const decoded = ngeohash.decode(hash);
+		coordinates = {
+			latitude: decoded.latitude,
+			longitude: decoded.longitude
+		};
+	}
 
-	const getHash = () => ngeohash.encode(coordinates.latitude, coordinates.longitude);
+	const getHash = (): string => ngeohash.encode(coordinates.latitude, coordinates.longitude);
+
 	const getCoordinatesByIP = async () => {
 		try {
 			const response = await fetch('http://ip-api.com/json/');
@@ -28,7 +40,7 @@
 				};
 				hash = getHash();
 			} else {
-				throw new Error(`Failed to get coordinates: ${dataRes.status}`);
+				throw new Error(`Failed to get coordinates: ${dataRes.message || dataRes.status}`);
 			}
 		} catch (error) {
 			console.error(error);
@@ -49,12 +61,10 @@
 		}
 	};
 
-	const setMarker = () => {
+	$effect(() => {
 		if (title && marker) marker.bindPopup(title).openPopup();
 		else if (marker) marker.getPopup()?.remove();
-	};
-
-	$effect(() => setMarker())
+	});
 
 	onMount(async () => {
 		map = L.map('map2');
@@ -65,7 +75,10 @@
 		marker = L.marker([coordinates.latitude, coordinates.longitude]).addTo(map);
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 		map.setView([coordinates.latitude, coordinates.longitude], hash ? 13 : 2);
-		setMarker()
+	});
+
+	onDestroy(() => {
+		map.remove();
 	});
 </script>
 
