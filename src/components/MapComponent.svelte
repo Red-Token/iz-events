@@ -88,5 +88,6 @@
 	#map2 {
 		width: 100%;
 		height: 400px;
+		z-index: 1;
 	}
 </style>

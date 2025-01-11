@@ -49,7 +49,7 @@
 	}
 
 	.map-container {
-		width: 600px;
+		width: 500px;
 		height: 400px;
 		display: flex;
 		justify-content: center;

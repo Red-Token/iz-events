@@ -104,22 +104,20 @@
 
 <style scoped>
 	.container {
-		font-family: Arial, sans-serif;
 		padding: 1rem;
 		max-width: 500px;
 		margin: 0 auto;
 		border: 1px solid #ccc;
 		border-radius: 8px;
 	}
-
 	label {
-		display: block;
+		display: flex;
 		font-weight: bold;
 		margin-top: 0.5rem;
 	}
 
 	input {
-		display: block;
+		display: flex;
 		width: 100%;
 		margin-bottom: 1rem;
 		padding: 0.5rem;

@@ -58,12 +58,13 @@
 		const coordinates = ngeohash.decode(xxx);
 		console.log(coordinates);
 	});
-
-	//TODO: It is necessary to use it for displaying the list of created and received events, to add the display of multiple
-	//markers on the map, and to include shared links/invites for sending invitations.
-	
 	//$inspect(calEvent.cal.title, calEvent.cal.description);
 </script>
+
+<h3>
+	TODO: It is necessary to use it for displaying the list of created and received events, to add the display of multiple
+	markers on the map, and to include shared links/invites for sending invitations.
+</h3>
 
 <!-- <div class="container">
 	<h1>{calEvent.cal.title}</h1>
@@ -74,3 +75,5 @@
 		{/each}
 	</div>
 </div> -->
+<style>
+</style>

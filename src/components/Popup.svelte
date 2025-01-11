@@ -29,10 +29,12 @@
 		<div class="popup" onclick={event => event.stopPropagation()}>
 			<h2>This is a Popup!</h2>
 			<p>Click outside to close or press the button.</p>
+
+			<div class="qr-container">
+				<QRCode code="HELLO WAR!"></QRCode>
+			</div>
 			<button onclick={() => zil()}>AS</button>
 			<button onclick={() => closePopup()}>Close</button>
-
-			<QRCode code="HELLO WAR!"></QRCode>
 		</div>
 	</div>
 {/if}
@@ -52,21 +54,29 @@
 	}
 
 	.popup {
-		background: white;
+		background: rgb(77, 77, 77);
 		padding: 20px;
 		border-radius: 8px;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+		align-items: center;
+		gap: 10px;
 	}
 
 	button {
-		padding: 10px 15px;
+		padding: 5px 12px;
 		border: none;
 		background-color: #007bff;
 		color: white;
 		cursor: pointer;
+		margin-inline: 20px;
 	}
 
 	button:hover {
 		background-color: #0056b3;
+	}
+
+	.qr-container {
+		margin-top: 20px;
+		margin-bottom: 20px;
 	}
 </style>

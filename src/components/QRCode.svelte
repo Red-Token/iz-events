@@ -4,27 +4,26 @@
 
 	let { code } = $props();
 
-	let canvas: Element;
-	let wrapper: Element;
-	let scale = $state(0.1);
+	let canvas: HTMLCanvasElement;
+	let wrapper: HTMLElement;
+	let scale = $state(1);
 	let height: number | undefined = $state();
 
 	onMount(() => {
-		QRCode.toCanvas(canvas, code);
-
-		const wrapperRect = wrapper.getBoundingClientRect();
-		const canvasRect = canvas.getBoundingClientRect();
-
-		scale = wrapperRect.width / (canvasRect.width * 10);
-		height = canvasRect.width * 10 * scale;
+		QRCode.toCanvas(canvas, code, { width: 200 }, (error) => {
+			if (error) console.error(error);
+			const wrapperRect = wrapper.getBoundingClientRect();
+			const canvasRect = canvas.getBoundingClientRect();
+			scale = Math.min(wrapperRect.width / canvasRect.width, wrapperRect.height / canvasRect.height);
+			height = canvasRect.height * scale;
+		});
 	});
 </script>
 
-<div bind:this={wrapper} style={`height: ${height}px`}>
+<div bind:this={wrapper} style={`height: ${height}px; display: flex; justify-content: center; align-items: center;`}>
 	<canvas
-		class="rounded-box"
 		bind:this={canvas}
-		style={`transform-origin: top left; transform: scale(${scale}, ${scale})`}
+		style={`transform: scale(${scale}); transform-origin: center;`}
 	>
 		WORMROOM!
 	</canvas>
