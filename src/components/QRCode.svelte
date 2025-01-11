@@ -10,7 +10,7 @@
 	let height: number | undefined = $state();
 
 	onMount(() => {
-		QRCode.toCanvas(canvas, code, { width: 200 }, (error) => {
+		QRCode.toCanvas(canvas, code, { width: 200 }, error => {
 			if (error) console.error(error);
 			const wrapperRect = wrapper.getBoundingClientRect();
 			const canvasRect = canvas.getBoundingClientRect();
@@ -20,11 +20,14 @@
 	});
 </script>
 
-<div bind:this={wrapper} style={`height: ${height}px; display: flex; justify-content: center; align-items: center;`}>
-	<canvas
-		bind:this={canvas}
-		style={`transform: scale(${scale}); transform-origin: center;`}
-	>
-		WORMROOM!
-	</canvas>
+<div
+	class="qr-conteiner"
+	bind:this={wrapper}
+	style={`height: ${height}px; display: flex; justify-content: center; align-items: center;`}
+>
+	<canvas bind:this={canvas} style={`transform: scale(${scale}); transform-origin: center;`}> WORMROOM! </canvas>
 </div>
+
+<style>
+	
+</style>

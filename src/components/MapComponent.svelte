@@ -89,5 +89,7 @@
 		width: 100%;
 		height: 400px;
 		z-index: 1;
+		border-radius: 2%;
+		border: 2px solid #000;
 	}
 </style>

@@ -46,7 +46,8 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: var(--overlay-background);
+		border: 1px solid var(--border-color);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -54,10 +55,10 @@
 	}
 
 	.popup {
-		background: rgb(77, 77, 77);
+		background: var(--bg-2);
 		padding: 20px;
 		border-radius: 8px;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 4px 20px var(--shadow-color);
 		align-items: center;
 		gap: 8px;
 	}

@@ -1,25 +1,43 @@
-html {
-	--bg-1: #2e2e2e;
-	--bg-2: #4d4d4d;
-	--bg-3: #666;
+:root {
+	--bg-1: #2c2f33;
+	--bg-2: #23272a;
+	--bg-3: #23272a;
 	--fg-1: #e6e6e6;
 	--fg-2: #b3b3b3;
 	--fg-3: #999;
 	--link: #73c1fc;
 	--link-hover: #91cefd;
+	--nav-hover: #d1ebff;
 	--link-active: #4baffb;
+	--border-radius: 16px;
+	--border-color: #25282b;
+	--overlay-background: rgba(0, 0, 0, 0.4);
+	--shadow-color: rgba(0, 0, 0, 0.5);
+	--input-field: #8a8a8a;
+	--button-text-color: #1e3d66;
 }
-body {
-	--border-radius: 4px;
-	--font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-		'Helvetica Neue', sans-serif;
-	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-	background: var(--bg-1);
 
+[data-theme='light'] {
+	--bg-1: #ffffff;
+	--bg-2: #f5f5f5;
+	--bg-3: #e0e0e0;
+	--fg-1: #333333;
+	--fg-2: #666666;
+	--fg-3: #999999;
+	--link: #007bff;
+	--link-hover: #0056b3;
+	--link-active: #004080;
+	--overlay-background: rgba(0, 0, 0, 0.5);
+}
+
+body {
+	background: var(--bg-1);
 	color: var(--fg-1);
-	font-family: var(--font);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+		'Helvetica Neue', sans-serif;
 	height: calc(100vh - 2rem);
-	margin: 1rem;
+	margin-bottom: 0.5;
+	margin-top: 0;
 	line-height: 1.5;
 }
 h1,
@@ -35,92 +53,91 @@ h6 {
 	justify-content: center;
 	align-items: center;
 }
-:-webkit-any(h1, h2, h3, h4, h5, h6, p) {
-	margin: 1rem 0.1rem;
-}
-:is(h1, h2, h3, h4, h5, h6, p) {
-	margin: 1rem 0.1rem;
-}
 label {
 	margin: 0.5rem 0.1rem;
 }
-:-webkit-any(h1, h2, h3, h4, h5, h6, p, label):first-child {
-	margin-top: 0;
-}
-:is(h1, h2, h3, h4, h5, h6, p, label):first-child {
-	margin-top: 0;
-}
-:-webkit-any(h1, h2, h3, h4, h5, h6, p, label):last-child {
-	margin-bottom: 0;
-}
-:is(h1, h2, h3, h4, h5, h6, p, label):last-child {
-	margin-bottom: 0;
-}
-a {
-	color: var(--link);
-}
-a:hover {
-	color: var(--link-hover);
-}
-a:active {
-	color: var(--link-active);
-}
-label {
-	align-items: center;
-	gap: 0.5rem;
+nav {
+	background: var(--bg-2);
+	width: 100%;
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+	border: 1px solid var(--border-color);
+	padding: 0.5rem;
+	gap: 1em;
+	margin: 0 12rem 1.5rem 12rem;
+	z-index: 100;
+	box-shadow: 0 4px 16px var(--shadow-color);
 	display: flex;
+	position: relative;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
 }
+
+nav a {
+	text-decoration: none;
+
+	position: relative;
+	transition: color 0.4s;
+	display: inline-block;
+	padding: 0 0.5rem;
+	border-left: 1px solid var(--color-border);
+	text-align: center;
+}
+
+nav a:hover {
+	color: var(--nav-hover);
+	
+}
+
+nav a:hover::after {
+	content: '';
+}
+
 label input {
-	margin: 0;
-}
-button,
-input,
-select {
-	font-family: inherit;
-	font-size: inherit;
+	margin: 1em;
 }
 button {
 	background: var(--link);
 	color: var(--bg-1);
 	border-radius: var(--border-radius);
 	border: none;
+	cursor: pointer;
 	padding: 0.5rem 1rem;
+	transition:
+		background-color 0.3s,
+		transform 0.2s;
 }
+
 button:hover {
 	background: var(--link-hover);
+	transform: scale(1.05);
 }
+
 button:active {
 	background: var(--link-active);
+	transform: scale(0.95);
 }
-:-webkit-any(button, button:hover, button:active):disabled {
-	background: var(--link);
-	filter: grayscale();
-	opacity: 0.4;
-}
-:is(button, button:hover, button:active):disabled {
-	background: var(--link);
-	filter: grayscale();
-	opacity: 0.4;
-}
+
 input,
 textarea,
 select {
 	border: 1px solid var(--bg-2);
 	border-radius: var(--border-radius);
 	box-sizing: border-box;
-	padding: 0.5rem;
-}
-input,
-textarea {
+	padding: 1rem;
+
 	background: var(--bg-1);
 	color: inherit;
 }
+
 select:not([multiple]) {
 	background: var(--bg-2);
 }
-textarea {
-	font-family: var(--font-mono);
-	font-size: 0.9rem;
+a {
+	color: var(--link);
+	text-decoration: none;
 }
 form {
 	flex-direction: column;
@@ -128,46 +145,30 @@ form {
 	gap: 1rem;
 	display: flex;
 }
-ul:has(li):has(form) {
-	padding: 0;
-	list-style: none;
+
+a:hover {
+	color: var(--link-hover);
 }
-li form {
-	flex-direction: row;
-	gap: 0.5rem;
-	margin: 0.5rem 0;
+
+a:active {
+	color: var(--link-active);
 }
-nav {
+
+.card {
 	background: var(--bg-2);
-	z-index: 2;
 	border-radius: var(--border-radius);
-	gap: 1em;
-	margin: 0 0 1em;
-	padding: 1em;
-	display: flex;
-	position: relative;
+	padding: 1rem;
+	margin: 0 1rem 1rem 1rem;
 }
-nav a {
-	text-decoration: none;
-}
-nav a[aria-current='true'] {
-	border-bottom: 2px solid;
-}
-ul:has(form) {
-	padding: 0;
-	list-style: none;
-}
-progress {
-	margin: 0.5rem 0;
-}
-progress:first-child {
-	margin-top: 0;
-}
-progress:lsat-child {
-	margin-bottom: 0;
-}
-.error {
-	color: red;
+
+.theme-switcher {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	background: var(--bg-2);
+	border-radius: var(--border-radius);
+	padding: 0.5rem;
+	cursor: pointer;
 }
 code {
 	background: var(--bg-2);
@@ -175,60 +176,4 @@ code {
 	border-radius: var(--border-radius);
 	padding: 0.15rem 0.3rem;
 	font-size: 0.9em;
-}
-ul.todos {
-	padding: 0;
-}
-ul.todos li form {
-	-webkit-user-select: none;
-	user-select: none;
-	background: var(--bg-1);
-	filter: drop-shadow(2px 3px 6px #0000001a);
-	border-radius: 5px;
-	align-items: center;
-	gap: 0.5em;
-	margin: 0 0 0.5em;
-	padding: 0.5em 0.5em 0.5em 1em;
-	transition:
-		filter 0.2s,
-		opacity 0.2s;
-	display: flex;
-	position: relative;
-}
-ul.todos li:not(:has(> form)) {
-	-webkit-user-select: none;
-	user-select: none;
-	background: var(--bg-1);
-	filter: drop-shadow(2px 3px 6px #0000001a);
-	border-radius: 5px;
-	align-items: center;
-	gap: 0.5em;
-	margin: 0 0 0.5em;
-	padding: 0.5em 0.5em 0.5em 1em;
-	transition:
-		filter 0.2s,
-		opacity 0.2s;
-	display: flex;
-	position: relative;
-}
-ul.todos .done {
-	filter: none;
-	opacity: 0.4;
-}
-ul.todos button {
-	cursor: pointer;
-	aspect-ratio: 1;
-	opacity: 0.5;
-	background-color: #0000;
-	background-position: 50%;
-	background-repeat: no-repeat;
-	background-size: 1rem 1rem;
-	border: none;
-	width: 3em;
-	height: 3em;
-	margin: -0.5em -0.5em -0.5em 0;
-	transition: opacity 0.2s;
-}
-ul.todos button:hover {
-	opacity: 1;
 }

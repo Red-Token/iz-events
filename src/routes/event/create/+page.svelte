@@ -104,15 +104,17 @@
 
 <style scoped>
 	.container {
+		background-color: var(--bg-2);
 		padding: 1rem;
 		max-width: 500px;
 		margin: 0 auto;
-		border: 1px solid #ccc;
-		border-radius: 8px;
+		border: 1px solid var(--border-color);
+		border-radius: 20px;
+		box-shadow: 0 4px 20px var(--shadow-color);
 	}
 	label {
 		display: flex;
-		font-weight: bold;
+		font-weight: normal;
 		margin-top: 0.5rem;
 	}
 
@@ -121,21 +123,16 @@
 		width: 100%;
 		margin-bottom: 1rem;
 		padding: 0.5rem;
-		border: 1px solid #ccc;
+		border: 1px solid var(--input-field);
 		border-radius: 4px;
 	}
 
 	button {
 		margin-top: 0.5rem;
 		padding: 0.5rem 1rem;
-		background-color: #007bff;
-		color: #fff;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
 	}
 
 	button:hover {
-		background-color: #0056b3;
+		box-shadow: 0 0 10px var(--glow-color);
 	}
 </style>

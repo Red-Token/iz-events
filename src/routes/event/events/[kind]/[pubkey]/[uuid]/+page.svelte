@@ -29,7 +29,7 @@
 		<h4>
 			{eventState.start}
 		</h4>
-		<div class="map-container" style="border: 1px solid #000;">
+		<div class="map-container">
 			<MapComponent isInteractive={false} hash={eventState.geoHashes[0]} title={eventState.title} />
 		</div>
 	{/if}
@@ -49,6 +49,7 @@
 	}
 
 	.map-container {
+		
 		width: 500px;
 		height: 400px;
 		display: flex;
