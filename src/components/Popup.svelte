@@ -59,24 +59,11 @@
 		border-radius: 8px;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 		align-items: center;
-		gap: 10px;
-	}
-
-	button {
-		padding: 5px 12px;
-		border: none;
-		background-color: #007bff;
-		color: white;
-		cursor: pointer;
-		margin-inline: 20px;
-	}
-
-	button:hover {
-		background-color: #0056b3;
+		gap: 8px;
 	}
 
 	.qr-container {
-		margin-top: 20px;
-		margin-bottom: 20px;
+		margin-top: 16px;
+		margin-bottom: 16px;
 	}
 </style>
