@@ -2,12 +2,12 @@
 	import QRCode from 'qrcode';
 	import { onMount } from 'svelte';
 
-	export let code;
+	let { code } = $props();
 
 	let canvas: Element;
 	let wrapper: Element;
-	let scale = 0.1;
-	let height: number;
+	let scale = $state(0.1);
+	let height: number | undefined = $state();
 
 	onMount(() => {
 		QRCode.toCanvas(canvas, code);
@@ -24,7 +24,8 @@
 	<canvas
 		class="rounded-box"
 		bind:this={canvas}
-		style={`transform-origin: top left; transform: scale(${scale}, ${scale})`}>
+		style={`transform-origin: top left; transform: scale(${scale}, ${scale})`}
+	>
 		WORMROOM!
 	</canvas>
 </div>
