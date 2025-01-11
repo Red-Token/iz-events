@@ -9,29 +9,26 @@
 		title,
 		isInteractive = false
 	}: { hash: string; title: string; isInteractive: boolean } = $props();
-
-	let coordinates = $state({ latitude: 0, longitude: 0 });
 	let map: L.Map;
-	let marker: L.Marker | undefined = $state();
+	let marker: L.Marker;
+	let coordinates = { latitude: 0, longitude: 0 };
 
 	if (hash) coordinates = ngeohash.decode(hash);
 
-	const getHash = (coordinates: { latitude: number; longitude: number }) =>
-		ngeohash.encode(coordinates.latitude, coordinates.longitude);
-
+	const getHash = () => ngeohash.encode(coordinates.latitude, coordinates.longitude);
 	const getCoordinatesByIP = async () => {
-		if (isInteractive === false) return;
 		try {
 			const response = await fetch('http://ip-api.com/json/');
-			const data = await response.json();
+			const dataRes = await response.json();
 
-			if (data.status === 'success') {
-				return (coordinates = {
-					latitude: data.lat,
-					longitude: data.lon
-				});
+			if (dataRes.status === 'success') {
+				coordinates = {
+					latitude: dataRes.lat,
+					longitude: dataRes.lon
+				};
+				hash = getHash();
 			} else {
-				throw new Error('Failed to get coordinates');
+				throw new Error(`Failed to get coordinates: ${dataRes.status}`);
 			}
 		} catch (error) {
 			console.error(error);
@@ -44,36 +41,31 @@
 			latitude: e.latlng.lat,
 			longitude: e.latlng.lng
 		};
-		hash = getHash(coordinates);
-
+		hash = getHash();
 		if (marker) {
 			marker.setLatLng(e.latlng);
 		} else {
 			marker = L.marker(e.latlng).addTo(map);
 		}
-		if (title) {
-			marker.bindPopup(title).openPopup();
-		}
 	};
+
+	const setMarker = () => {
+		if (title && marker) marker.bindPopup(title).openPopup();
+		else if (marker) marker.getPopup()?.remove();
+	};
+
+	$effect(() => setMarker())
 
 	onMount(async () => {
 		map = L.map('map2');
 		if (isInteractive === true) {
 			map.on('click', onMapClick);
-			await getCoordinatesByIP().then(coordinates => {
-				if (coordinates) {
-					hash = getHash(coordinates);
-				}
-			});
+			await getCoordinatesByIP();
 		}
-		setViewMap(map);
-	});
-
-	const setViewMap = $derived((map: L.Map) => {
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-		map.setView([coordinates.latitude || 0, coordinates.longitude || 0], hash ? 13 : 2);
 		marker = L.marker([coordinates.latitude, coordinates.longitude]).addTo(map);
-		if (title) marker.bindPopup(title).openPopup();
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+		map.setView([coordinates.latitude, coordinates.longitude], hash ? 13 : 2);
+		setMarker()
 	});
 </script>
 
