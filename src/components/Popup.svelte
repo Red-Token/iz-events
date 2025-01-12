@@ -3,7 +3,7 @@
 	import { getNip07 } from '@welshman/signer'
 	import QRCode from '@src/components/QRCode.svelte'
 
-	let { isOpen = false, closePopup = () => {}, logIn = (data: SignerData) => {} } = $props()
+	let { isOpen = false, closePopup, logIn = (data: SignerData) => {} }: {isOpen:boolean, closePopup: Function, logIn:Function} = $props()
 
 	async function zil() {
 		console.log('zil')

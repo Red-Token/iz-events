@@ -4,9 +4,9 @@
 	import { setContext } from '@welshman/lib'
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app'
 	import { me } from '@src/stores/profile.svelte'
+	import NotificationLogin from './NotificationLogin.svelte'
 
 	let isPopupOpen = $state(false) // Track the popup visibility
-
 	const client = NostrClient.getInstance()
 
 	setContext({
@@ -14,13 +14,8 @@
 		app: getDefaultAppContext()
 	})
 
-	function openPopup() {
-		isPopupOpen = true
-	}
-
-	function closePopup() {
-		isPopupOpen = false
-	}
+	const openPopup = () => (isPopupOpen = true)
+	const closePopup = () => (isPopupOpen = false)
 
 	function logIn(data: SignerData) {
 		client.logIn(data).then(() => {
@@ -35,8 +30,14 @@
 </script>
 
 {#if me.pubkey !== ''}
-	<h1>Welcome to Svelte Popup Example, {me.profile?.name}!</h1>
-	<button class="auth-button" onclick={logOut}>LogOut</button>
+	<NotificationLogin isVisible={true} />
+	<button class="auth-button" onclick={logOut}
+		><svg width="20" height="16" viewBox="0 0 24 24">
+			<path
+				d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.2c-3 0-9 1.5-9 4.5V21h18v-2.3c0-3-6-4.5-9-4.5z"
+			/>
+		</svg>LogOut</button
+	>
 {:else}
 	<button class="auth-button" onclick={openPopup}>
 		<svg width="20" height="16" viewBox="0 0 24 24">
