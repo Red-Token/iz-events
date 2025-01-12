@@ -1,12 +1,12 @@
-import { NostrProfileMetaData } from '@src/static/NostrProfileMetaData';
+import { NostrProfileMetaData } from '@src/static/NostrProfileMetaData'
 
-const unknown = new NostrProfileMetaData();
+const unknown = new NostrProfileMetaData()
 
-export const profiles = $state(new Map<string, NostrProfileMetaData>());
+export const profiles = $state(new Map<string, NostrProfileMetaData>())
 
 class Me {
-	pubkey: string = $state<string>('');
-	profile = $derived(this.pubkey === '' ? undefined : profiles.has(this.pubkey) ? profiles.get(this.pubkey)! : unknown);
+	pubkey: string = $state<string>('')
+	profile = $derived(this.pubkey === '' ? undefined : profiles.has(this.pubkey) ? profiles.get(this.pubkey)! : unknown)
 }
 
-export const me = new Me();
+export const me = new Me()

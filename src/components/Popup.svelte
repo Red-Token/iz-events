@@ -1,26 +1,26 @@
 <script lang="ts">
-	import { type SignerData, SignerType } from 'iz-nostrlib';
-	import { getNip07 } from '@welshman/signer';
-	import QRCode from '@src/components/QRCode.svelte';
+	import { type SignerData, SignerType } from 'iz-nostrlib'
+	import { getNip07 } from '@welshman/signer'
+	import QRCode from '@src/components/QRCode.svelte'
 
-	let { isOpen = false, closePopup = () => {}, logIn = (data: SignerData) => {} } = $props();
+	let { isOpen = false, closePopup = () => {}, logIn = (data: SignerData) => {} } = $props()
 
 	async function zil() {
-		console.log('zil');
+		console.log('zil')
 
 		// const aliceNSec = 'nsec18c4t7czha7g7p9cm05ve4gqx9cmp9w2x6c06y6l4m52jrry9xp7sl2su9x'
 		// const aliceSignerData = { type: SignerType.NIP01, nsec: aliceNSec }
 
-		const pubkey = await getNip07()?.getPublicKey();
-		console.log('pubkey', pubkey);
+		const pubkey = await getNip07()?.getPublicKey()
+		console.log('pubkey', pubkey)
 
-		const aliceSignerData = { type: SignerType.NIP07, pubkey: pubkey };
+		const aliceSignerData = { type: SignerType.NIP07, pubkey: pubkey }
 
 		// {method: "nip07", pubkey}
 
-		console.log(aliceSignerData);
-		logIn(aliceSignerData);
-		closePopup();
+		console.log(aliceSignerData)
+		logIn(aliceSignerData)
+		closePopup()
 	}
 </script>
 

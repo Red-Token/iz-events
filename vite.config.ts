@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config';
-import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config'
+import { sveltekit } from '@sveltejs/kit/vite'
 
 export default defineConfig({
 	build: {
@@ -9,4 +9,4 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}
-});
+})

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { page, navigating } from '$app/state';
-	let { children } = $props();
-	import '@src/static/app.css';
-	import LogInComponent from '@src/components/LogInComponent.svelte';
+	import { page, navigating } from '$app/state'
+	let { children } = $props()
+	import '@src/static/app.css'
+	import LogInComponent from '@src/components/LogInComponent.svelte'
 </script>
 
 <main>

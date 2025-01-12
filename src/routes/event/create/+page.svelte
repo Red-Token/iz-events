@@ -1,17 +1,20 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { NostrClient, SynchronisedSession } from 'iz-nostrlib';
-	import * as ngeohash from 'ngeohash';
-	import { getEventStore } from '$lib/stores/events';
-	import { Nip52CalendarEventTemplateBuilder, type Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
-	import { normalizeRelayUrl } from '@welshman/util';
-	import MapComponent from '@src/components/MapComponent.svelte';
-	import type { TypeOfEvents } from '$lib/types';
+	import { goto } from '$app/navigation'
+	import { NostrClient, SynchronisedSession } from 'iz-nostrlib'
+	import * as ngeohash from 'ngeohash'
+	import { getEventStore } from '$lib/stores/events'
+	import {
+		Nip52CalendarEventTemplateBuilder,
+		type Nip52CalendarEvent
+	} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
+	import { normalizeRelayUrl } from '@welshman/util'
+	import MapComponent from '@src/components/MapComponent.svelte'
+	import type { TypeOfEvents } from '$lib/types'
 
-	let aliceSession: SynchronisedSession;
+	let aliceSession: SynchronisedSession
 
-	let hash: string | undefined = $state();
-	
+	let hash: string | undefined = $state()
+
 	//@ts-ignore
 	let event: Nip52CalendarEvent = $state({
 		uuid: '',
@@ -21,13 +24,13 @@
 		start: '',
 		geoHashes: [''],
 		locations: ['']
-	});
+	})
 
 	async function createz() {
-		const tmpKind: number = 10777;
+		const tmpKind: number = 10777
 		// const tmpKind2 = 10778;
 
-		const uuid: string = self.crypto.randomUUID();
+		const uuid: string = self.crypto.randomUUID()
 
 		const et = new Nip52CalendarEventTemplateBuilder(
 			uuid,
@@ -37,22 +40,22 @@
 			undefined,
 			undefined,
 			event.geoHashes
-		);
+		)
 
-		let nip52EventTemplate = et.createNip52EventTemplate();
+		let nip52EventTemplate = et.createNip52EventTemplate()
 		// const eventThin = createEvent(tmpKind, et.createNip52EventTemplate())
 
 		// const TEST_EVENT = 10666;
 
-		const url = 'wss://relay.stream.labs.h3.se';
-		const relays = [normalizeRelayUrl(url)];
+		const url = 'wss://relay.stream.labs.h3.se'
+		const relays = [normalizeRelayUrl(url)]
 
-		aliceSession = await NostrClient.getInstance().createSession(relays);
+		aliceSession = await NostrClient.getInstance().createSession(relays)
 
-		const publisher = aliceSession.createPublisher();
+		const publisher = aliceSession.createPublisher()
 
 		// const payload = template.createNip52EventTemplate();
-		const publish = publisher.publish(tmpKind, nip52EventTemplate);
+		const publish = publisher.publish(tmpKind, nip52EventTemplate)
 
 		// const publish = publisher.publish(TEST_EVENT, {
 		//   content: JSON.stringify(msg), tags: [
@@ -63,15 +66,15 @@
 		//   ]
 		// })
 
-		const publishResult = await publish.result;
-		let id = publish.event.id;
-		console.log(publishResult);
+		const publishResult = await publish.result
+		let id = publish.event.id
+		console.log(publishResult)
 
 		const eventData: { kind: number; pubkey: string; uuid: string | number | undefined } = {
 			kind: tmpKind,
 			pubkey: publish.event.pubkey,
 			uuid: (publish.event.tags.find(tag => tag[0] === 'd') ?? [0, undefined])[1]
-		};
+		}
 
 		// const eventStore = getEventStore(id);
 		// eventStore.set({
@@ -80,7 +83,7 @@
 		// 	geohash: event.place
 		// });
 
-		goto(`/event/events/${eventData.kind}/${eventData.pubkey}/${eventData.uuid}`, {});
+		goto(`/event/events/${eventData.kind}/${eventData.pubkey}/${eventData.uuid}`, {})
 	}
 </script>
 

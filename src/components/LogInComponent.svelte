@@ -1,36 +1,36 @@
 <script lang="ts">
-	import Popup from './Popup.svelte';
-	import { NostrClient, type SignerData } from 'iz-nostrlib';
-	import { setContext } from '@welshman/lib';
-	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
-	import { me } from '@src/stores/profile.svelte';
+	import Popup from './Popup.svelte'
+	import { NostrClient, type SignerData } from 'iz-nostrlib'
+	import { setContext } from '@welshman/lib'
+	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app'
+	import { me } from '@src/stores/profile.svelte'
 
-	let isPopupOpen = $state(false); // Track the popup visibility
+	let isPopupOpen = $state(false) // Track the popup visibility
 
-	const client = NostrClient.getInstance();
+	const client = NostrClient.getInstance()
 
 	setContext({
 		net: getDefaultNetContext(),
 		app: getDefaultAppContext()
-	});
+	})
 
 	function openPopup() {
-		isPopupOpen = true;
+		isPopupOpen = true
 	}
 
 	function closePopup() {
-		isPopupOpen = false;
+		isPopupOpen = false
 	}
 
 	function logIn(data: SignerData) {
 		client.logIn(data).then(() => {
-			me.pubkey = client.publicKey !== undefined ? client.publicKey : '';
-		});
+			me.pubkey = client.publicKey !== undefined ? client.publicKey : ''
+		})
 	}
 
 	function logOut() {
-		NostrClient.getInstance().logOut();
-		me.pubkey = client.publicKey !== undefined ? client.publicKey : '';
+		NostrClient.getInstance().logOut()
+		me.pubkey = client.publicKey !== undefined ? client.publicKey : ''
 	}
 </script>
 
