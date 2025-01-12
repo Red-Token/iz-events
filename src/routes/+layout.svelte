@@ -3,7 +3,6 @@
 	let { children } = $props();
 	import '@src/static/app.css';
 	import LogInComponent from '@src/components/LogInComponent.svelte';
-	
 </script>
 
 <main>
@@ -13,7 +12,7 @@
 		<a href="/event/events" aria-current={page.url.pathname === '/events'}> Event </a>
 		<a href="/event/about" aria-current={page.url.pathname === '/about'}> About </a>
 
-		<LogInComponent  />
+		<LogInComponent />
 	</nav>
 </main>
 
@@ -29,10 +28,8 @@
 		max-width: 100%;
 		margin: 0;
 	}
-	
 
 	nav a:first-of-type {
 		border: 0;
-		
 	}
 </style>

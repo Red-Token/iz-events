@@ -60,16 +60,18 @@
 		cursor: pointer;
 		margin-right: 10px;
 	}
-	
+
 	.auth-button svg {
-      margin-right: 2px;
-      fill: var(--button-text-color);
-      transition: transform 0.3s, fill 0.3s;
-    }
+		margin-right: 2px;
+		fill: var(--button-text-color);
+		transition:
+			transform 0.3s,
+			fill 0.3s;
+	}
 	.auth-button:hover svg {
-      transform: scale(1.2);
-      fill: var(--shadow-color--link);
-    }
+		transform: scale(1.2);
+		fill: var(--shadow-color--link);
+	}
 	.auth-button:hover {
 		box-shadow: 0 0 10px var(--glow-color);
 	}

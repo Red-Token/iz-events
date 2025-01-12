@@ -88,7 +88,6 @@ nav a {
 
 nav a:hover {
 	color: var(--nav-hover);
-	
 }
 
 nav a:hover::after {

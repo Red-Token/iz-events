@@ -1,7 +1,7 @@
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import staticAdapter from '@sveltejs/adapter-static'
-import nodeAdapter from '@sveltejs/adapter-node'
-import multiAdapter from '@macfja/svelte-multi-adapter'
+import staticAdapter from '@sveltejs/adapter-static';
+import nodeAdapter from '@sveltejs/adapter-node';
+import multiAdapter from '@macfja/svelte-multi-adapter';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
