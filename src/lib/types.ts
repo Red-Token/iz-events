@@ -1,9 +1,9 @@
-export interface TypeEvents {
-	owner: string;
+export interface TypeOfEvents {
 	uuid: string;
 	title: string;
 	geoHashes: string[] | undefined;
+	participants: string[][]|undefined;
 	description: string;
 	start: Date | string;
-	places: string[] | undefined;
+	locations: string[] | undefined;
 }

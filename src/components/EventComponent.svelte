@@ -7,8 +7,6 @@
 	import { setContext } from '@welshman/lib';
 	import { getDefaultAppContext, getDefaultNetContext } from '@welshman/app';
 	import { me } from '@src/stores/profile.svelte';
-	import type { TypeEvents } from '$lib/types';
-	import { AbstractNip52CalendarEvent } from 'iz-nostrlib/src/org/nostr/nip52/Nip52CalendarEventTemplate';
 
 	let {
 		kind,
@@ -58,7 +56,16 @@
 		session.eventStream.emitter.on(EventType.DISCOVERED, (event: TrustedEvent) => {
 			if (event.kind == kind) {
 				const cal = new Nip52CalendarEvent(event);
-				eventState = cal;
+				//@ts-ignore
+				eventState = {
+					uuid: cal.uuid,
+					title: cal.title,
+					geoHashes: cal.geoHashes,
+					participants: cal.participants,
+					description: cal.description,
+					start: cal.start,
+					locations: cal.locations
+				};
 				test.owner = cal.event.pubkey;
 				console.log(`
 					title = ${cal.title},

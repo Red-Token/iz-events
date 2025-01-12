@@ -3,18 +3,24 @@
 	import { NostrClient, SynchronisedSession } from 'iz-nostrlib';
 	import * as ngeohash from 'ngeohash';
 	import { getEventStore } from '$lib/stores/events';
-	import { Nip52CalendarEventTemplateBuilder } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
+	import { Nip52CalendarEventTemplateBuilder, type Nip52CalendarEvent } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate';
 	import { normalizeRelayUrl } from '@welshman/util';
 	import MapComponent from '@src/components/MapComponent.svelte';
+	import type { TypeOfEvents } from '$lib/types';
 
 	let aliceSession: SynchronisedSession;
 
 	let hash: string | undefined = $state();
-	let event: { title: string; description: string; date: string | Date; place: string } = $state({
+	
+	//@ts-ignore
+	let event: Nip52CalendarEvent = $state({
+		uuid: '',
 		title: '',
 		description: '',
-		date: '',
-		place: hash
+		participants: [['']],
+		start: '',
+		geoHashes: [''],
+		locations: ['']
 	});
 
 	async function createz() {
@@ -27,10 +33,10 @@
 			uuid,
 			event.title,
 			event.description,
-			event.date,
+			event.start,
 			undefined,
 			undefined,
-			[event.place]
+			event.geoHashes
 		);
 
 		let nip52EventTemplate = et.createNip52EventTemplate();
@@ -90,14 +96,15 @@
 	</div>
 	<div>
 		<label for="date">Date:</label>
-		<input id="date" type="date" bind:value={event.date} />
+		<input id="date" type="date" bind:value={event.start} />
 	</div>
 	<div>
 		<label for="place">Place:</label>
-		<input id="place" bind:value={event.place} />
+		<input id="place" bind:value={event.geoHashes[0]} />
 	</div>
+
 	<div>
-		<MapComponent isInteractive={true} title={event.title} bind:hash={event.place} />
+		<MapComponent isInteractive={true} title={event.title} bind:hash={event.geoHashes[0]} />
 	</div>
 	<button onclick={createz}>CREATE</button>
 </div>
