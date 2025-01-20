@@ -1,22 +1,20 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { NostrClient, SynchronisedSession } from 'iz-nostrlib'
-	import * as ngeohash from 'ngeohash'
 	import { getEventStore } from '$lib/stores/events'
+	import type { TypeOfEvents } from '$lib/types'
 	import {
 		Nip52CalendarEventTemplateBuilder,
 		type Nip52CalendarEvent
 	} from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
 	import { normalizeRelayUrl } from '@welshman/util'
 	import MapComponent from '@src/components/MapComponent.svelte'
-	import type { TypeOfEvents } from '$lib/types'
 
 	let aliceSession: SynchronisedSession
 
 	let hash: string | undefined = $state()
 
-	//@ts-ignore
-	let event: Nip52CalendarEvent = $state({
+	let event: TypeOfEvents = $state({
 		uuid: '',
 		title: '',
 		description: '',
@@ -103,11 +101,13 @@
 	</div>
 	<div>
 		<label for="place">Place:</label>
-		<input id="place" bind:value={event.geoHashes[0]} />
+		<input id="place" bind:value={event.geoHashes![0]} />
+		<!-- TODO: should be change to array -->
 	</div>
 
 	<div>
-		<MapComponent isInteractive={true} title={event.title} bind:hash={event.geoHashes[0]} />
+		<MapComponent isInteractive={true} title={event.title} bind:hash={event.geoHashes![0]} />
+		<!-- TODO: should be change to array -->
 	</div>
 	<button onclick={createz}>CREATE</button>
 </div>

@@ -9,7 +9,6 @@
 				isVisible = false
 			}, 3500)
 	})
-	
 </script>
 
 <div

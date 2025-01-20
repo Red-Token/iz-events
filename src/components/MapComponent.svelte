@@ -25,7 +25,7 @@
 
 	const getHash = (): string => ngeohash.encode(coordinates.latitude, coordinates.longitude)
 
-	const getCoordinatesByIP = async () => {
+	const getCoordinatesByIP = async (): Promise<void> => {
 		try {
 			const response = await fetch('http://ip-api.com/json/')
 			const dataRes = await response.json()
@@ -41,7 +41,6 @@
 			}
 		} catch (error) {
 			console.error(error)
-			return null
 		}
 	}
 

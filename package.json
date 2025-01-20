@@ -16,10 +16,10 @@
 		"test": "npm run test:unit -- --run"
 	},
 	"dependencies": {
+		"@red-token/iz-svelte-library": "^0.0.4",
 		"iz-nostrlib": "^0.0.13",
 		"leaflet": "^1.9.4",
-		"ngeohash": "^0.6.3",
-		"qrcode": "^1.5.4"
+		"ngeohash": "^0.6.3"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",
@@ -40,18 +40,19 @@
 		"@welshman/signer": "0.0.19",
 		"@welshman/store": "0.0.15",
 		"@welshman/util": "0.0.55",
+		"autoprefixer": "^10.4.20",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
 		"husky": "^9.1.7",
 		"nostr-tools": "^2.10.4",
+		"postcss": "^8.5.1",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
-		"qrcode": "^1.5.4",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
-		"svelte-routing": "^2.13.0",
+		"tailwindcss": "^3.4.17",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
 		"vite": "^6.0.7",

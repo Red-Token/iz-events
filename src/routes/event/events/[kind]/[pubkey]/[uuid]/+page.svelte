@@ -3,8 +3,8 @@
 	import EventComponent from '@src/components/EventComponent.svelte'
 	import MapComponent from '@src/components/MapComponent.svelte'
 	import type { Nip52CalendarEvent as EventTypes } from 'iz-nostrlib/dist/org/nostr/nip52/Nip52CalendarEventTemplate'
+	import type { TypeOfEvents } from '$lib/types'
 	let kind: number = $state(Number(page.params.kind))
-
 	//@ts-ignore
 	let eventState: EventTypes = $state({
 		uuid: '',
@@ -12,7 +12,7 @@
 		geoHashes: [''],
 		participants: [['']],
 		description: '',
-		start: '',
+		start: Date,
 		locations: ['']
 	})
 </script>

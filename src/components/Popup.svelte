@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { type SignerData, SignerType } from 'iz-nostrlib'
 	import { getNip07 } from '@welshman/signer'
-	import QRCode from '@src/components/QRCode.svelte'
+	import { QRCode } from '@red-token/iz-svelte-library'
 
-	let { isOpen = false, closePopup, logIn = (data: SignerData) => {} }: {isOpen:boolean, closePopup: Function, logIn:Function} = $props()
+	let {
+		isOpen = false,
+		closePopup,
+		logIn = (data: SignerData) => {}
+	}: { isOpen: boolean; closePopup: Function; logIn: Function } = $props()
 
 	async function zil() {
 		console.log('zil')

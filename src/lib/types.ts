@@ -1,9 +1,10 @@
 export interface TypeOfEvents {
-	uuid: string
+	uuid: string | number | undefined
 	title: string
-	geoHashes: string[] | undefined
-	participants: string[][] | undefined
+	geoHashes?: string[]
+	participants?: string[][]
 	description: string
 	start: Date | string
-	locations: string[] | undefined
+	end?: Date | string
+	locations?: string[]
 }
