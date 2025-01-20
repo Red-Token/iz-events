@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@red-token/iz-svelte-library':
-        specifier: ^0.0.4
-        version: 0.0.4(svelte@5.19.0)
+        specifier: ^0.0.10
+        version: 0.0.10(svelte@5.19.0)
       iz-nostrlib:
         specifier: ^0.0.13
         version: 0.0.13(nostr-signer-capacitor-plugin@0.0.3(@capacitor/core@6.2.0))(typescript@5.7.3)
@@ -563,8 +563,8 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@red-token/iz-svelte-library@0.0.4':
-    resolution: {integrity: sha512-uffs6kjHVJfvjS4ipQTgDUiOR9vhzbiF2TAemZ4RJUEUdkWtLw68akfRTe+YFnEHx852bncGArdoTa4uXCF2+w==}
+  '@red-token/iz-svelte-library@0.0.10':
+    resolution: {integrity: sha512-dVsC5Oo+5xAJZD7yymCij1Oi7tZT/FCe6DvK6v2spgx8j2r4e/V8NyHkPFztrnhQ1dJ9gzJ431aXBdKGDJhRKQ==}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -2457,7 +2457,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@red-token/iz-svelte-library@0.0.4(svelte@5.19.0)':
+  '@red-token/iz-svelte-library@0.0.10(svelte@5.19.0)':
     dependencies:
       '@types/qrcode': 1.5.5
       qrcode: 1.5.4

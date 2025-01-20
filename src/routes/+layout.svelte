@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page, navigating } from '$app/state'
 	let { children } = $props()
-	import '@src/static/app.css'
+	import '@src/style/app.css'
 	import LogInComponent from '@src/components/LogInComponent.svelte'
+	import { ThemeToggle } from '@red-token/iz-svelte-library'
 </script>
 
 <main>
@@ -11,7 +12,7 @@
 		<a href="/event/create" aria-current={page.url.pathname === '/create'}> Create </a>
 		<a href="/event/events" aria-current={page.url.pathname === '/events'}> Event </a>
 		<a href="/event/about" aria-current={page.url.pathname === '/about'}> About </a>
-
+		<ThemeToggle />
 		<LogInComponent />
 	</nav>
 </main>

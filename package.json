@@ -16,7 +16,7 @@
 		"test": "npm run test:unit -- --run"
 	},
 	"dependencies": {
-		"@red-token/iz-svelte-library": "^0.0.4",
+		"@red-token/iz-svelte-library": "^0.0.10",
 		"iz-nostrlib": "^0.0.13",
 		"leaflet": "^1.9.4",
 		"ngeohash": "^0.6.3"
